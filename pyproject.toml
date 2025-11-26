@@ -81,6 +81,9 @@ docs = [
 [project.urls]
 Homepage = "https://github.com/EO-DataHub/workflow-catalogue"
 
+[project.scripts]
+wfc = "workflow_catalogue.cli.entrypoint:cli"
+
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
