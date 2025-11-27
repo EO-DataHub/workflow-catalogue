@@ -28,11 +28,13 @@ classifiers = [
 license = { text = "MIT" }
 dependencies = [
     "click>=8.1.8",
+    "datamodel-code-generator>=0.36.0",
     "psutil>=7.0.0",
     "pydantic>=2.11.4",
     "pydantic-settings>=2.9.1",
     "python-dotenv>=1.1.0",
     "pyyaml>=6.0.2",
+    "stac-pydantic>=3.4.0",
     "tqdm>=4.67.1",
 ]
 
