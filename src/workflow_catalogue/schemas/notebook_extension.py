@@ -6,7 +6,7 @@ from typing import Annotated
 
 from pydantic import AnyUrl, BaseModel, Field
 
-from workflow_catalogue.schemas.common import InputParameter, Link, OutputFormat, Rel
+from workflow_catalogue.schemas.common import InputParameter, Link, OutputFormat
 
 
 class JupyterKernelInfo(BaseModel):
@@ -57,7 +57,6 @@ class JupyterKernel(BaseModel):
 class NotebookLink(Link):
     """Link to a related resource."""
 
-    rel: Rel | None = None
     jupyter_kernel: JupyterKernel | None = Field(None, alias="jupyter:kernel")
 
 
