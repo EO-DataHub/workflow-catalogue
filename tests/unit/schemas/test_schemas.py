@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import json
-from pathlib import Path
+from typing import TYPE_CHECKING
 
 import pytest
 
@@ -9,6 +9,9 @@ from workflow_catalogue.consts import directories
 from workflow_catalogue.schemas.catalogue import EodhCatalogue
 from workflow_catalogue.schemas.notebook import EodhNotebookRecord
 from workflow_catalogue.schemas.workflow import EodhWorkflowRecord
+
+if TYPE_CHECKING:
+    from pathlib import Path
 
 TEST_DATA_DIR = directories.TESTS_DIR / "test_data"
 
