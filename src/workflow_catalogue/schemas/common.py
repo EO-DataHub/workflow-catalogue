@@ -3,9 +3,10 @@
 from __future__ import annotations
 
 from enum import Enum
+from pathlib import Path
 from typing import Any
 
-from pydantic import AnyUrl, BaseModel, Field, constr
+from pydantic import AnyUrl, BaseModel, Field
 
 
 class Rel(Enum):
@@ -19,12 +20,13 @@ class Rel(Enum):
     application_platform = "application-platform"
     vcs = "vcs"
     documentation = "documentation"
+    about = "about"
 
 
 class Link(BaseModel):
     """Link to a related resource."""
 
-    href: AnyUrl
+    href: AnyUrl | Path
     rel: Rel
     type: str | None = None
     title: str | None = None
@@ -51,9 +53,9 @@ class ParameterType(Enum):
 class InputParameter(BaseModel):
     """Input parameter definition."""
 
-    label: constr(min_length=1) = Field(..., description="Human-readable parameter label", min_length=1)
+    label: str = Field(..., description="Human-readable parameter label", min_length=1)
     type: ParameterType = Field(..., description="Parameter data type")
-    description: constr(min_length=1) = Field(..., description="Parameter description", min_length=1)
+    description: str = Field(..., description="Parameter description", min_length=1)
     default: Any | None = Field(None, description="Default value for the parameter")
     placeholder: str | None = Field(None, description="Placeholder text for UI forms")
     required: bool | None = Field(None, description="Whether the parameter is required")

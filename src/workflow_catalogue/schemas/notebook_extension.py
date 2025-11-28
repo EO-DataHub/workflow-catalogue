@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
-from pydantic import AnyUrl, BaseModel, Field, constr
+from typing import Annotated
+
+from pydantic import AnyUrl, BaseModel, Field
 
 from workflow_catalogue.schemas.common import InputParameter, Link, OutputFormat, Rel
 
@@ -19,7 +21,7 @@ class NotebookProperties(BaseModel):
     """Additional properties of the notebook."""
 
     type: str = Field("notebook", frozen=True)
-    input_parameters: dict[constr(regex=r"^[a-zA-Z0-9_-]+$"), InputParameter] | None = Field(
+    input_parameters: dict[Annotated[str, Field(pattern=r"^[a-zA-Z0-9_-]+$")], InputParameter] | None = Field(
         None,
         alias="inputParameters",
         description="Input parameters for the notebook",

@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
-from pydantic import BaseModel, Field, constr
+from typing import Annotated
+
+from pydantic import BaseModel, Field
 
 from workflow_catalogue.schemas.common import InputParameter, Link  # noqa: TC001
 
@@ -32,7 +34,7 @@ class Properties(BaseModel):
     """Additional properties of the workflow."""
 
     type: str = Field("workflow", frozen=True)
-    input_parameters: dict[constr(regex=r"^[a-zA-Z0-9_-]+$"), InputParameter] | None = Field(
+    input_parameters: dict[Annotated[str, Field(pattern=r"^[a-zA-Z0-9_-]+$")], InputParameter] | None = Field(
         None,
         alias="inputParameters",
         description="Input parameters for the workflow",

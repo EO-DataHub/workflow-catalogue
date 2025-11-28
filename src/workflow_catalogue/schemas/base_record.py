@@ -4,13 +4,11 @@ from __future__ import annotations
 
 from datetime import datetime  # noqa: TC003
 from enum import Enum
-from typing import TYPE_CHECKING
 
 from geojson_pydantic.geometries import Geometry  # noqa: TC002
-from pydantic import AnyUrl, BaseModel, Field, constr
+from pydantic import AnyUrl, BaseModel, Field
 
-if TYPE_CHECKING:
-    from workflow_catalogue.schemas.common import Link, Role
+from workflow_catalogue.schemas.common import Link, Role  # noqa: TC001
 
 
 class Type(Enum):
@@ -35,10 +33,10 @@ class Properties(BaseModel):
     created: datetime = Field(..., description="Creation timestamp in ISO 8601 format")
     updated: datetime = Field(..., description="Last update timestamp in ISO 8601 format")
     type: Type = Field(..., description="Type of catalogue record")
-    title: constr(min_length=1) = Field(..., description="Human-readable title", min_length=1)
-    description: constr(min_length=1) = Field(..., description="Detailed description of the workflow or notebook")
+    title: str = Field(..., description="Human-readable title", min_length=1)
+    description: str = Field(..., description="Detailed description of the workflow or notebook")
     keywords: list[str] = Field(..., description="Keywords for discovery and categorization", min_length=1)
-    language: constr(regex=r"^[a-z]{2}(-[A-Z]{2})?$") = Field(..., description="Language code (ISO 639-1)")
+    language: str = Field(pattern=r"^[a-z]{2}(-[A-Z]{2})?$", description="Language code (ISO 639-1)")
     license: str | None = Field(None, description="License identifier (e.g., Apache-2.0, MIT, proprietary)")
     applicable_collections: list[AnyUrl] = Field(
         ...,
@@ -55,7 +53,7 @@ class Properties(BaseModel):
 class BaseEodhCatalogueRecord(BaseModel):
     """Base model for EODH catalogue records."""
 
-    id: constr(regex=r"^[a-zA-Z0-9_-]+$") = Field(..., description="Unique identifier for the record")
+    id: str = Field(..., description="Unique identifier for the record", pattern=r"^[a-zA-Z0-9_-]+$")
     type: str = Field("Feature", frozen=True, description="OGC Records Feature type")
     geometry: Geometry | None = Field(
         ...,
