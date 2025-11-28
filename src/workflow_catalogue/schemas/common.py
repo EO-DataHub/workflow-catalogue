@@ -3,12 +3,10 @@
 from __future__ import annotations
 
 from enum import Enum
-from typing import TYPE_CHECKING, Any
+from pathlib import Path  # noqa: TC003
+from typing import Any
 
 from pydantic import AnyUrl, BaseModel, Field
-
-if TYPE_CHECKING:
-    from pathlib import Path
 
 
 class Rel(Enum):
@@ -23,6 +21,9 @@ class Rel(Enum):
     vcs = "vcs"
     documentation = "documentation"
     about = "about"
+    item = "item"
+    asset = "asset"
+    data = "data"
 
 
 class Link(BaseModel):

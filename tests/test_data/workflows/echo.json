@@ -1,0 +1,99 @@
+{
+    "id": "echo",
+    "type": "Feature",
+    "geometry": null,
+    "conformsTo": [
+        "http://www.opengis.net/doc/IS/ogcapi-records-1/1.0"
+    ],
+    "properties": {
+        "created": "2024-10-14T00:00:00Z",
+        "updated": "2024-10-14T00:00:00Z",
+        "type": "workflow",
+        "title": "Echo",
+        "description": "This workflow echoes the input assets. It's a simple test workflow that returns the input parameters back to the caller, useful for testing and debugging workflow execution infrastructure.",
+        "keywords": [
+            "echo",
+            "test",
+            "debug",
+            "utility"
+        ],
+        "language": "en",
+        "license": "Apache-2.0",
+        "applicableCollections": [],
+        "contacts": [
+            {
+                "name": "EODH Platform Team",
+                "organization": "EO DataHub",
+                "roles": [
+                    "author"
+                ],
+                "links": [
+                    {
+                        "href": "https://eodatahub.org.uk",
+                        "rel": "about",
+                        "type": "text/html",
+                        "title": "EO DataHub Platform"
+                    }
+                ]
+            }
+        ],
+        "inputParameters": {
+            "a": {
+                "type": "text",
+                "label": "Text input",
+                "description": "A text input parameter"
+            },
+            "b": {
+                "type": "text",
+                "label": "Complex input",
+                "description": "A complex input parameter"
+            },
+            "c": {
+                "type": "text",
+                "label": "Bbox input",
+                "description": "A bounding box input parameter"
+            }
+        },
+        "application:type": "cwl",
+        "application:container": true,
+        "application:language": "CWL"
+    },
+    "links": [
+        {
+            "rel": "root",
+            "href": "../catalog.json",
+            "type": "application/json",
+            "title": "EODH Workflows and Notebooks Catalog"
+        },
+        {
+            "rel": "parent",
+            "href": "../catalog.json",
+            "type": "application/json",
+            "title": "Workflows and Notebooks"
+        },
+        {
+            "rel": "self",
+            "href": "https://eodatahub.org.uk/workflows/echo.json",
+            "type": "application/geo+json",
+            "title": "This record"
+        },
+        {
+            "rel": "application-platform",
+            "type": "application/json",
+            "title": "ADES Platform Endpoint",
+            "href": "https://eodatahub.org.uk/api/catalogue/stac/catalogs/user/catalogs/exampleuser/processes/echo"
+        },
+        {
+            "rel": "application",
+            "href": "https://example.com/cwl/echo_workflow.cwl",
+            "type": "application/cwl+yaml",
+            "title": "CWL Application Package"
+        },
+        {
+            "rel": "vcs",
+            "type": "text/html",
+            "title": "Source Code Repository",
+            "href": "https://github.com/EO-DataHub/eodh-workflows"
+        }
+    ]
+}

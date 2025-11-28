@@ -1,0 +1,92 @@
+{
+    "id": "bbox-workflow",
+    "type": "Feature",
+    "geometry": null,
+    "conformsTo": [
+        "http://www.opengis.net/doc/IS/ogcapi-records-1/1.0"
+    ],
+    "properties": {
+        "created": "2024-10-14T00:00:00Z",
+        "updated": "2024-10-14T00:00:00Z",
+        "type": "workflow",
+        "title": "BBOX Workflow",
+        "description": "This workflow clips a dataset with a bounding box. It extracts a spatial subset of the input data based on the provided geographic coordinates, useful for focusing analysis on specific areas of interest.",
+        "keywords": [
+            "bbox",
+            "clip",
+            "subset",
+            "spatial",
+            "sentinel2",
+            "extraction"
+        ],
+        "language": "en",
+        "license": "Apache-2.0",
+        "applicableCollections": [
+            "https://eodatahub.org.uk/api/catalogue/stac/catalogs/public/catalogs/ceda-stac-catalogue/collections/sentinel2_ard"
+        ],
+        "contacts": [
+            {
+                "name": "EODH Platform Team",
+                "organization": "EO DataHub",
+                "roles": [
+                    "author"
+                ],
+                "links": [
+                    {
+                        "href": "https://eodatahub.org.uk",
+                        "rel": "about",
+                        "type": "text/html",
+                        "title": "EO DataHub Platform"
+                    }
+                ]
+            }
+        ],
+        "inputParameters": {
+            "input_cog": {
+                "label": "COG to clip from",
+                "type": "raster",
+                "description": "Cloud Optimized GeoTIFF to be clipped"
+            },
+            "bbox": {
+                "label": "Bounding Box",
+                "type": "bbox",
+                "description": "Geographic bounding box defining the area to extract"
+            }
+        },
+        "application:type": "cwl",
+        "application:container": true,
+        "application:language": "CWL"
+    },
+    "links": [
+        {
+            "rel": "root",
+            "href": "../catalog.json",
+            "type": "application/json",
+            "title": "EODH Workflows and Notebooks Catalog"
+        },
+        {
+            "rel": "parent",
+            "href": "../catalog.json",
+            "type": "application/json",
+            "title": "Workflows and Notebooks"
+        },
+        {
+            "rel": "self",
+            "href": "https://eodatahub.org.uk/workflows/bbox-workflow.json",
+            "type": "application/geo+json",
+            "title": "This record"
+        },
+        {
+            "rel": "application-platform",
+            "type": "application/json",
+            "title": "ADES Platform Endpoint",
+            "href": "https://eodatahub.org.uk/api/catalogue/stac/catalogs/user/catalogs/exampleuser/processes/bbox-workflow"
+        },
+        {
+            "rel": "vcs",
+            "type": "text/html",
+            "title": "Source Code Repository",
+            "href": "https://github.com/EO-DataHub/eodh-workflows"
+        }
+    ]
+}

@@ -43,8 +43,8 @@ class Properties(BaseModel):
         alias="applicableCollections",
         description="Array of STAC collection URLs that this workflow/notebook can process",
     )
-    contacts: list[Contact] = Field(
-        ...,
+    contacts: list[Contact] | None = Field(
+        default_factory=list,
         description="Contact information for the workflow/notebook",
         min_length=0,
     )

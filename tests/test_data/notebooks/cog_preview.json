@@ -1,0 +1,102 @@
+{
+    "id": "cog_preview",
+    "type": "Feature",
+    "geometry": null,
+    "conformsTo": [
+        "http://www.opengis.net/doc/IS/ogcapi-records-1/1.0"
+    ],
+    "properties": {
+        "created": "2024-10-14T00:00:00Z",
+        "updated": "2024-10-14T00:00:00Z",
+        "type": "notebook",
+        "title": "COG Preview Notebook",
+        "description": "Previews the selected COG asset. This notebook provides quick visualization capabilities for Cloud Optimized GeoTIFFs, allowing users to inspect data quality and coverage before further processing.",
+        "keywords": [
+            "cog",
+            "preview",
+            "visualization",
+            "jupyter",
+            "notebook",
+            "sentinel1",
+            "sentinel2"
+        ],
+        "language": "en",
+        "applicableCollections": [
+            "https://eodatahub.org.uk/api/catalogue/stac/catalogs/public/catalogs/ceda-stac-catalogue/collections/sentinel2_ard",
+            "https://eodatahub.org.uk/api/catalogue/stac/catalogs/public/catalogs/ceda-stac-catalogue/collections/sentinel1_ard"
+        ],
+        "inputParameters": {
+            "input_cog": {
+                "label": "COG to preview",
+                "type": "raster",
+                "description": "Cloud Optimized GeoTIFF to visualize and inspect"
+            }
+        },
+        "jupyter_kernel_info": {
+            "name": "python3",
+            "python_version": 3.11,
+            "env_file": "https://raw.githubusercontent.com/geodowd/notebook_config/refs/heads/main/notebooks/example/environment.yml"
+        },
+        "application:type": "jupyter-notebook",
+        "application:container": false,
+        "application:language": "Python",
+        "formats": [
+            {
+                "name": "Jupyter Notebook",
+                "mediaType": "application/x-ipynb+json"
+            }
+        ]
+    },
+    "links": [
+        {
+            "rel": "root",
+            "href": "../catalog.json",
+            "type": "application/json",
+            "title": "EODH Workflows and Notebooks Catalog"
+        },
+        {
+            "rel": "parent",
+            "href": "../catalog.json",
+            "type": "application/json",
+            "title": "Workflows and Notebooks"
+        },
+        {
+            "rel": "self",
+            "href": "https://eodatahub.org.uk/notebooks/cog_preview.json",
+            "type": "application/geo+json",
+            "title": "This record"
+        },
+        {
+            "rel": "alternate",
+            "href": "./cog_preview.html",
+            "type": "text/html",
+            "title": "This record as HTML"
+        },
+        {
+            "rel": "application",
+            "href": "https://raw.githubusercontent.com/geodowd/notebook_config/refs/heads/main/notebooks/example/cog_preview.ipynb",
+            "type": "application/x-ipynb+json",
+            "title": "Jupyter Notebook: COG Preview",
+            "application:type": "jupyter-notebook",
+            "application:container": false,
+            "application:language": "Python",
+            "jupyter:kernel": {
+                "name": "python3",
+                "pythonVersion": 3.11,
+                "envFile": "https://raw.githubusercontent.com/geodowd/notebook_config/refs/heads/main/notebooks/example/environment.yml"
+            }
+        },
+        {
+            "rel": "application-platform",
+            "type": "application/json",
+            "title": "Jupyter Hub Endpoint",
+            "href": "https://eodatahub.org.uk/api/catalogue/stac/catalogs/user/catalogs/exampleuser/processes/cog-preview"
+        },
+        {
+            "rel": "documentation",
+            "href": "https://raw.githubusercontent.com/geodowd/notebook_config/refs/heads/main/notebooks/example/cog_preview.md",
+            "type": "text/markdown",
+            "title": "Notebook documentation"
+        }
+    ]
+}
