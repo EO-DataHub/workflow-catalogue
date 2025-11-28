@@ -3,10 +3,12 @@
 from __future__ import annotations
 
 from enum import Enum
-from pathlib import Path
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 from pydantic import AnyUrl, BaseModel, Field
+
+if TYPE_CHECKING:
+    from pathlib import Path
 
 
 class Rel(Enum):
@@ -62,7 +64,7 @@ class InputParameter(BaseModel):
     min: float | None = Field(None, description="Minimum value for numeric parameters")
     max: float | None = Field(None, description="Maximum value for numeric parameters")
     pattern: str | None = Field(None, description="Regex pattern for text parameters")
-    enum: list | None = Field(None, description="Allowed values for the parameter")
+    enum: list[str | int | float] | None = Field(None, description="Allowed values for the parameter")
 
 
 class OutputFormat(BaseModel):
