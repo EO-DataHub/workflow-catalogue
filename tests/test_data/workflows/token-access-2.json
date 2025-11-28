@@ -1,0 +1,84 @@
+{
+    "id": "token-access-2",
+    "type": "Feature",
+    "geometry": null,
+    "conformsTo": [
+        "http://www.opengis.net/doc/IS/ogcapi-records-1/1.0"
+    ],
+    "properties": {
+        "created": "2024-10-14T00:00:00Z",
+        "updated": "2024-10-14T00:00:00Z",
+        "type": "workflow",
+        "title": "Token Access",
+        "description": "This workflow tests the token access to the API. It validates authentication and authorization mechanisms for secure workflow execution.",
+        "keywords": [
+            "authentication",
+            "authorization",
+            "token",
+            "security",
+            "test"
+        ],
+        "language": "en",
+        "license": "Apache-2.0",
+        "applicableCollections": [],
+        "contacts": [
+            {
+                "name": "EODH Platform Team",
+                "organization": "EO DataHub",
+                "roles": [
+                    "author"
+                ],
+                "links": [
+                    {
+                        "href": "https://eodatahub.org.uk",
+                        "rel": "about",
+                        "type": "text/html",
+                        "title": "EO DataHub Platform"
+                    }
+                ]
+            }
+        ],
+        "inputParameters": {
+            "workspace": {
+                "type": "text",
+                "label": "Workspace",
+                "description": "The workspace identifier to test access for"
+            }
+        },
+        "application:type": "cwl",
+        "application:container": true,
+        "application:language": "CWL"
+    },
+    "links": [
+        {
+            "rel": "root",
+            "href": "../catalog.json",
+            "type": "application/json",
+            "title": "EODH Workflows and Notebooks Catalog"
+        },
+        {
+            "rel": "parent",
+            "href": "../catalog.json",
+            "type": "application/json",
+            "title": "Workflows and Notebooks"
+        },
+        {
+            "rel": "self",
+            "href": "https://eodatahub.org.uk/workflows/token-access-2.json",
+            "type": "application/geo+json",
+            "title": "This record"
+        },
+        {
+            "rel": "application-platform",
+            "type": "application/json",
+            "title": "ADES Platform Endpoint",
+            "href": "https://eodatahub.org.uk/api/catalogue/stac/catalogs/user/catalogs/exampleuser/processes/token-access-2"
+        },
+        {
+            "rel": "vcs",
+            "type": "text/html",
+            "title": "Source Code Repository",
+            "href": "https://github.com/EO-DataHub/eodh-workflows"
+        }
+    ]
+}

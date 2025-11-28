@@ -1,0 +1,103 @@
+{
+    "id": "mean_value_calculation",
+    "type": "Feature",
+    "geometry": null,
+    "conformsTo": [
+        "http://www.opengis.net/doc/IS/ogcapi-records-1/1.0"
+    ],
+    "properties": {
+        "created": "2024-10-14T00:00:00Z",
+        "updated": "2024-10-14T00:00:00Z",
+        "type": "notebook",
+        "title": "Mean Value Calculation Notebook",
+        "description": "Calculates the mean value of the selected COG assets. This notebook performs temporal or spatial mean calculations across multiple COG files, useful for time-series analysis and change detection.",
+        "keywords": [
+            "mean",
+            "average",
+            "calculation",
+            "jupyter",
+            "notebook",
+            "sentinel1",
+            "sentinel2",
+            "time-series"
+        ],
+        "language": "en",
+        "applicableCollections": [
+            "https://eodatahub.org.uk/api/catalogue/stac/catalogs/public/catalogs/ceda-stac-catalogue/collections/sentinel2_ard",
+            "https://eodatahub.org.uk/api/catalogue/stac/catalogs/public/catalogs/ceda-stac-catalogue/collections/sentinel1_ard"
+        ],
+        "inputParameters": {
+            "input_cogs": {
+                "label": "COGs for mean value calculation",
+                "type": "raster",
+                "description": "List of Cloud Optimized GeoTIFFs for temporal or spatial mean calculations"
+            }
+        },
+        "jupyter_kernel_info": {
+            "name": "python3",
+            "python_version": 3.11,
+            "env_file": "https://raw.githubusercontent.com/geodowd/notebook_config/refs/heads/main/notebooks/example/environment.yml"
+        },
+        "application:type": "jupyter-notebook",
+        "application:container": false,
+        "application:language": "Python",
+        "formats": [
+            {
+                "name": "Jupyter Notebook",
+                "mediaType": "application/x-ipynb+json"
+            }
+        ]
+    },
+    "links": [
+        {
+            "rel": "root",
+            "href": "../catalog.json",
+            "type": "application/json",
+            "title": "EODH Workflows and Notebooks Catalog"
+        },
+        {
+            "rel": "parent",
+            "href": "../catalog.json",
+            "type": "application/json",
+            "title": "Workflows and Notebooks"
+        },
+        {
+            "rel": "self",
+            "href": "https://eodatahub.org.uk/notebooks/mean_value_calculation.json",
+            "type": "application/geo+json",
+            "title": "This record"
+        },
+        {
+            "rel": "alternate",
+            "href": "./mean_value_calculation.html",
+            "type": "text/html",
+            "title": "This record as HTML"
+        },
+        {
+            "rel": "application",
+            "href": "https://raw.githubusercontent.com/geodowd/notebook_config/refs/heads/main/notebooks/example/mean_value_calculation.ipynb",
+            "type": "application/x-ipynb+json",
+            "title": "Jupyter Notebook: Mean Value Calculation",
+            "application:type": "jupyter-notebook",
+            "application:container": false,
+            "application:language": "Python",
+            "jupyter:kernel": {
+                "name": "python3",
+                "pythonVersion": 3.11,
+                "envFile": "https://raw.githubusercontent.com/geodowd/notebook_config/refs/heads/main/notebooks/example/environment.yml"
+            }
+        },
+        {
+            "rel": "application-platform",
+            "type": "application/json",
+            "title": "Jupyter Hub Endpoint",
+            "href": "https://eodatahub.org.uk/api/catalogue/stac/catalogs/user/catalogs/exampleuser/processes/mean-value-calculation"
+        },
+        {
+            "rel": "documentation",
+            "href": "https://raw.githubusercontent.com/geodowd/notebook_config/refs/heads/main/notebooks/example/mean_value_calculation.md",
+            "type": "text/markdown",
+            "title": "Notebook documentation"
+        }
+    ]
+}

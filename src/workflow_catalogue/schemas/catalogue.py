@@ -32,7 +32,7 @@ class Contact(BaseModel):
     links: list[Link] | None = None
 
 
-class EodhCatalogueSchema(BaseModel):
+class EodhCatalogue(BaseModel):
     """EODH catalogue schema."""
 
     id: str = Field(..., description="Unique identifier for the catalog", pattern=r"^[a-zA-Z0-9_-]+$")

@@ -1,0 +1,119 @@
+{
+    "id": "eodh-workflows-notebooks",
+    "type": "Collection",
+    "itemType": "record",
+    "conformsTo": [
+        "http://www.opengis.net/doc/IS/ogcapi-records-1/1.0"
+    ],
+    "title": "EODH Workflows and Notebooks Catalog",
+    "description": "A catalog of Earth observation data processing workflows and interactive notebooks available for various collections. This catalog provides discoverable metadata for workflows and notebooks that can be executed against STAC collections.",
+    "keywords": [
+        "workflows",
+        "notebooks",
+        "earth observation",
+        "processing",
+        "analysis",
+        "sentinel",
+        "ndvi",
+        "jupyter"
+    ],
+    "themes": [
+        {
+            "concepts": [
+                {
+                    "id": "earth-observation",
+                    "title": "Earth Observation"
+                },
+                {
+                    "id": "data-processing",
+                    "title": "Data Processing"
+                },
+                {
+                    "id": "remote-sensing",
+                    "title": "Remote Sensing"
+                }
+            ],
+            "scheme": "https://example.org/eodh/themes"
+        }
+    ],
+    "language": "en",
+    "created": "2024-10-14T00:00:00Z",
+    "updated": "2024-10-14T00:00:00Z",
+    "contacts": [
+        {
+            "name": "EODH Platform",
+            "roles": [
+                "publisher"
+            ]
+        }
+    ],
+    "license": "proprietary",
+    "links": [
+        {
+            "rel": "root",
+            "href": "./catalog.json",
+            "type": "application/json",
+            "title": "EODH Workflows and Notebooks Catalog"
+        },
+        {
+            "rel": "self",
+            "href": "https://eodatahub.org.uk/catalog.json",
+            "type": "application/json",
+            "title": "This catalog"
+        },
+        {
+            "rel": "item",
+            "href": "./workflows/ndvi-workflow.json",
+            "type": "application/geo+json",
+            "title": "NDVI Calculation Workflow"
+        },
+        {
+            "rel": "item",
+            "href": "./workflows/bbox-workflow.json",
+            "type": "application/geo+json",
+            "title": "BBOX Workflow"
+        },
+        {
+            "rel": "item",
+            "href": "./workflows/lst-min-max.json",
+            "type": "application/geo+json",
+            "title": "Land Surface Temperature (LST) - Monthly"
+        },
+        {
+            "rel": "item",
+            "href": "./workflows/echo.json",
+            "type": "application/geo+json",
+            "title": "Echo Workflow"
+        },
+        {
+            "rel": "item",
+            "href": "./workflows/token-access-2.json",
+            "type": "application/geo+json",
+            "title": "Token Access Workflow"
+        },
+        {
+            "rel": "item",
+            "href": "./notebooks/ndvi_calculation.json",
+            "type": "application/geo+json",
+            "title": "NDVI Calculation Notebook"
+        },
+        {
+            "rel": "item",
+            "href": "./notebooks/cog_preview.json",
+            "type": "application/geo+json",
+            "title": "COG Preview Notebook"
+        },
+        {
+            "rel": "item",
+            "href": "./notebooks/stats_look.json",
+            "type": "application/geo+json",
+            "title": "View Stats Notebook"
+        },
+        {
+            "rel": "item",
+            "href": "./notebooks/mean_value_calculation.json",
+            "type": "application/geo+json",
+            "title": "Mean Value Calculation Notebook"
+        }
+    ]
+}
