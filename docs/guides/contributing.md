@@ -14,6 +14,6 @@ There are a couple of rules that you should follow:
 8. We use _google_ style for the docstrings.
 9. Code review should be done for every PR.
 10. We do not merge directly to the **main** branch.
-11. Always start from the **main** branch when branching to a new feature branch.
+11. Always start from the **main** branch when branching to a new feature branch. See the [Adding records](adding-records.md) guide for catalogue contributions.
 12. We require at least one approval on each PR and all threads to be resolved before the merge.
 13. When merging, we use **squash before merge** or **rebase** to have a clean history

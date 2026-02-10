@@ -34,6 +34,7 @@ dependencies = [
     "pydantic-settings>=2.9.1",
     "python-dotenv>=1.1.0",
     "pyyaml>=6.0.2",
+    "requests>=2.32.0",
     "stac-pydantic>=3.4.0",
     "tqdm>=4.67.1",
 ]
@@ -68,6 +69,7 @@ dev = [
     "types-pyyaml>=6.0.12.20250402",
     "types-retry>=0.9.9.20250322",
     "types-setuptools>=80.0.0.20250429",
+    "types-requests>=2.32.0.20250515",
     "types-tqdm>=4.67.0.20250417",
 ]
 docs = [
@@ -99,6 +101,7 @@ extend-exclude = [
     "data/*",
     "logs/*",
     "mlruns/*",
+    "scripts/*",
 ]
 
 [tool.ruff.lint]

@@ -14,6 +14,7 @@ if TYPE_CHECKING:
     from pathlib import Path
 
 TEST_DATA_DIR = directories.TESTS_DIR / "test_data"
+CATALOGUE_DIR = directories.CATALOGUE_DIR
 
 
 @pytest.mark.parametrize(
@@ -41,3 +42,28 @@ def test_notebook(notebook_definition_path: Path) -> None:
 )
 def test_catalogue(catalogue_path: Path) -> None:
     EodhCatalogue.model_validate(json.loads(catalogue_path.read_text(encoding="utf-8")))
+
+
+# Tests for the actual catalogue/ directory data (defense-in-depth)
+
+
+@pytest.mark.parametrize(
+    "workflow_definition_path",
+    list((CATALOGUE_DIR / "workflows").glob("*.json")),
+    ids=lambda p: p.stem,
+)
+def test_catalogue_workflow(workflow_definition_path: Path) -> None:
+    EodhWorkflowRecord.model_validate(json.loads(workflow_definition_path.read_text(encoding="utf-8")))
+
+
+@pytest.mark.parametrize(
+    "notebook_definition_path",
+    list((CATALOGUE_DIR / "notebooks").glob("*.json")),
+    ids=lambda p: p.stem,
+)
+def test_catalogue_notebook(notebook_definition_path: Path) -> None:
+    EodhNotebookRecord.model_validate(json.loads(notebook_definition_path.read_text(encoding="utf-8")))
+
+
+def test_catalogue_catalog_json() -> None:
+    EodhCatalogue.model_validate(json.loads((CATALOGUE_DIR / "catalog.json").read_text(encoding="utf-8")))

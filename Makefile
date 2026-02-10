@@ -94,6 +94,12 @@ clean:
 	rm -rf .hypothesis
 	rm -rf docs-site
 
+# Catalogue validation
+
+.PHONY: validate-catalogue  ## Validates all catalogue JSON records against schemas
+validate-catalogue:
+	uv run wfc catalogue validate --catalogue-path catalogue
+
 # Dockerfile commands
 
 .PHONY: docker-all  ## Docker default target

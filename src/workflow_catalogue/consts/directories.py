@@ -16,3 +16,4 @@ ROOT_DIR = Path(__file__).resolve().parents[3]
 SRC_DIR = ROOT_DIR / "src"
 TESTS_DIR = ROOT_DIR / "tests"
 DATA_DIR = ROOT_DIR / "data"
+CATALOGUE_DIR = ROOT_DIR / "catalogue"

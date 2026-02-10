@@ -61,6 +61,8 @@ nav:
   - Guides:
       - Setting up dev environment: "guides/setup-dev-env.md"
       - Contributing: "guides/contributing.md"
+      - Adding records: "guides/adding-records.md"
+      - QA testing: "guides/qa-testing.md"
       - Running tests: "guides/tests.md"
       - Using Makefile commands: "guides/makefile-usage.md"
   - DEV-LOG:
