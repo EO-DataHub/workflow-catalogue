@@ -4,6 +4,12 @@ This guide covers end-to-end testing of the catalogue CI/CD pipeline and API ver
 
 Replace `{API_URL}` with the actual wf-catalogue-service URL for your environment.
 
+All API endpoints require a Bearer token. Set it once:
+
+```shell
+TOKEN="your-access-token"
+```
+
 ## 1. CI validation (pull request)
 
 When a PR is opened that changes files under `catalogue/`, the **Validate Catalogue** workflow runs automatically.
@@ -60,15 +66,33 @@ Expected: `200 OK` with `{"status": "ok"}`
 ### List catalogues
 
 ```shell
-curl {API_URL}/collections
+curl -H "Authorization: Bearer $TOKEN" {API_URL}/api/v1.0/collections
 ```
 
 Expected: `200 OK` with a list containing the `eodh-workflows-notebooks` catalogue.
 
+### Create a new collection
+
+```shell
+curl -X POST -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" \
+  -d '{"id": "my-collection", "title": "My Collection", "description": "Test collection"}' \
+  {API_URL}/api/v1.0/collections
+```
+
+Expected: `201 Created`. Sending the same request again returns `409 Conflict`.
+
+### Delete a collection
+
+```shell
+curl -X DELETE -H "Authorization: Bearer $TOKEN" {API_URL}/api/v1.0/collections/my-collection
+```
+
+Expected: `204 No Content`. Returns `404` if the collection does not exist, `409` if it still has records.
+
 ### List all records
 
 ```shell
-curl "{API_URL}/collections/eodh-workflows-notebooks/items"
+curl -H "Authorization: Bearer $TOKEN" "{API_URL}/api/v1.0/collections/eodh-workflows-notebooks/items"
 ```
 
 Expected: `200 OK` with paginated response:
@@ -86,32 +110,32 @@ Expected: `200 OK` with paginated response:
 ### Filter by type
 
 ```shell
-curl "{API_URL}/collections/eodh-workflows-notebooks/items?type=workflow"
-curl "{API_URL}/collections/eodh-workflows-notebooks/items?type=notebook"
+curl -H "Authorization: Bearer $TOKEN" "{API_URL}/api/v1.0/collections/eodh-workflows-notebooks/items?type=workflow"
+curl -H "Authorization: Bearer $TOKEN" "{API_URL}/api/v1.0/collections/eodh-workflows-notebooks/items?type=notebook"
 ```
 
 ### Search by text
 
 ```shell
-curl "{API_URL}/collections/eodh-workflows-notebooks/items?q=ndvi"
+curl -H "Authorization: Bearer $TOKEN" "{API_URL}/api/v1.0/collections/eodh-workflows-notebooks/items?q=ndvi"
 ```
 
 ### Filter by keyword
 
 ```shell
-curl "{API_URL}/collections/eodh-workflows-notebooks/items?keywords=vegetation"
+curl -H "Authorization: Bearer $TOKEN" "{API_URL}/api/v1.0/collections/eodh-workflows-notebooks/items?keywords=vegetation"
 ```
 
 ### Pagination
 
 ```shell
-curl "{API_URL}/collections/eodh-workflows-notebooks/items?page=1&page_size=5"
+curl -H "Authorization: Bearer $TOKEN" "{API_URL}/api/v1.0/collections/eodh-workflows-notebooks/items?page=1&page_size=5"
 ```
 
 ### Get a specific record
 
 ```shell
-curl {API_URL}/collections/eodh-workflows-notebooks/items/ndvi-workflow
+curl -H "Authorization: Bearer $TOKEN" {API_URL}/api/v1.0/collections/eodh-workflows-notebooks/items/ndvi-workflow
 ```
 
 Expected: `200 OK` with the full record. Verify that the response fields match the JSON file that was merged (title, description, keywords, links, inputParameters, etc.).
@@ -119,20 +143,28 @@ Expected: `200 OK` with the full record. Verify that the response fields match t
 ### Get catalogue metadata
 
 ```shell
-curl {API_URL}/collections/eodh-workflows-notebooks
+curl -H "Authorization: Bearer $TOKEN" {API_URL}/api/v1.0/collections/eodh-workflows-notebooks
 ```
 
 Expected: `200 OK` with catalogue details (title, description, themes, contacts, links).
 
+### Verify auth is required
+
+```shell
+curl {API_URL}/api/v1.0/collections
+```
+
+Expected: `403 Forbidden` (no Bearer token).
+
 ## 4. Testing a new record
 
-1. Create a feature branch and add a new JSON file to `catalogue/workflows/` or `catalogue/notebooks/`
+1. Create a feature branch and add a new JSON file to `catalogue/{collection-id}/workflows/` or `catalogue/{collection-id}/notebooks/`
 2. Open a PR — verify CI passes
 3. Merge the PR — verify CD runs
 4. Query the API to confirm the new record appears:
 
     ```shell
-    curl {API_URL}/collections/eodh-workflows-notebooks/items/{new-record-id}
+    curl -H "Authorization: Bearer $TOKEN" {API_URL}/api/v1.0/collections/eodh-workflows-notebooks/items/{new-record-id}
     ```
 
 5. Verify the record data matches the JSON file
@@ -150,7 +182,7 @@ Expected: `200 OK` with catalogue details (title, description, themes, contacts,
 3. Query the API and verify the record returns `404`:
 
     ```shell
-    curl {API_URL}/collections/eodh-workflows-notebooks/items/{deleted-record-id}
+    curl -H "Authorization: Bearer $TOKEN" {API_URL}/api/v1.0/collections/eodh-workflows-notebooks/items/{deleted-record-id}
     ```
 
 ## 7. Expected record IDs

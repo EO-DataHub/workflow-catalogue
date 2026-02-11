@@ -4,20 +4,25 @@ This guide explains how to add a new workflow or notebook record to the catalogu
 
 ## Directory structure
 
+Records are organised by collection. Each collection has its own directory under `catalogue/`:
+
 ```
 catalogue/
-├── catalog.json          # root catalogue (do not edit manually)
-├── workflows/            # workflow records
-│   └── my-workflow.json
-└── notebooks/            # notebook records
-    └── my_notebook.json
+└── eodh-workflows-notebooks/    # collection ID
+    ├── catalog.json              # collection metadata
+    ├── workflows/                # workflow records
+    │   └── my-workflow.json
+    └── notebooks/                # notebook records
+        └── my_notebook.json
 ```
+
+To add a new collection, create a new directory under `catalogue/` with a `catalog.json` describing the collection. The directory name becomes the collection ID. On merge, the CD pipeline will automatically create the collection in the API if it does not exist yet.
 
 ## Step by step
 
 1. **Copy a template** from the appropriate directory:
-    - Workflow: `catalogue/workflows/ndvi-workflow.json`
-    - Notebook: `catalogue/notebooks/ndvi_calculation.json`
+    - Workflow: `catalogue/eodh-workflows-notebooks/workflows/ndvi-workflow.json`
+    - Notebook: `catalogue/eodh-workflows-notebooks/notebooks/ndvi_calculation.json`
 
 2. **Rename the file** to match the record ID. The filename stem must equal the `id` field:
     - `my-workflow.json` → `"id": "my-workflow"`

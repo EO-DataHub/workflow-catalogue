@@ -33,7 +33,7 @@ def test_validate_catalogue_test_data_directory() -> None:
 
 def test_validate_catalogue_single_workflow_via_changed_files() -> None:
     """Validates a single workflow file using --changed-files."""
-    wf_file = CATALOGUE_DIR / "workflows" / "ndvi-workflow.json"
+    wf_file = CATALOGUE_DIR / "eodh-workflows-notebooks" / "workflows" / "ndvi-workflow.json"
     runner = CliRunner()
     result = runner.invoke(
         validate_catalogue,
@@ -44,7 +44,7 @@ def test_validate_catalogue_single_workflow_via_changed_files() -> None:
 
 def test_validate_catalogue_single_notebook_via_changed_files() -> None:
     """Validates a single notebook file using --changed-files."""
-    nb_file = CATALOGUE_DIR / "notebooks" / "ndvi_calculation.json"
+    nb_file = CATALOGUE_DIR / "eodh-workflows-notebooks" / "notebooks" / "ndvi_calculation.json"
     runner = CliRunner()
     result = runner.invoke(
         validate_catalogue,
@@ -64,7 +64,7 @@ def test_validate_catalogue_invalid_json(tmp_path: Path) -> None:
 
 def test_validate_catalogue_filename_id_mismatch(tmp_path: Path) -> None:
     """Fails validation when filename stem does not match record id."""
-    wf_file = CATALOGUE_DIR / "workflows" / "ndvi-workflow.json"
+    wf_file = CATALOGUE_DIR / "eodh-workflows-notebooks" / "workflows" / "ndvi-workflow.json"
     data = json.loads(wf_file.read_text(encoding="utf-8"))
     data["id"] = "mismatched-id"
     mismatched_file = tmp_path / "ndvi-workflow.json"

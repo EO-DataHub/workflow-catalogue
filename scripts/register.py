@@ -1,9 +1,12 @@
 """CD script: register catalogue records in wf-catalogue-service and publish to ADES.
 
 Usage:
-    python scripts/register.py --files catalogue/workflows/ndvi-workflow.json
-    python scripts/register.py --files catalogue/workflows/*.json --skip-ades
+    python scripts/register.py --files catalogue/eodh-workflows-notebooks/workflows/ndvi-workflow.json
+    python scripts/register.py --files catalogue/eodh-workflows-notebooks/workflows/*.json --skip-ades
     python scripts/register.py --deleted-ids ndvi-workflow echo
+
+The collection ID is derived from the file path: ``catalogue/{collection-id}/workflows/foo.json``.
+If the collection does not exist in the API, it is created from ``catalog.json`` in that directory.
 
 Environment variables:
     WF_CATALOGUE_API_URL                        - wf-catalogue-service base URL
@@ -30,6 +33,16 @@ import requests
 
 TIMEOUT = 30
 OGC_PROCESSES_PATH = "ogc-api/processes"
+
+
+def get_collection_id(file_path: Path) -> str | None:
+    """Extract collection ID from file path: catalogue/{collection-id}/workflows/foo.json."""
+    parts = file_path.parts
+    try:
+        cat_idx = parts.index("catalogue")
+        return parts[cat_idx + 1]
+    except (ValueError, IndexError):
+        return None
 
 
 def get_keycloak_token() -> str:
@@ -72,14 +85,51 @@ def get_workspace_token(keycloak_token: str, workspace: str) -> str:
     return resp.json()["access"]
 
 
-def register_record(file_path: Path, token: str) -> bool:
+def ensure_collection(collection_id: str, file_path: Path, token: str) -> bool:
+    """Ensure collection exists in the API. Create from catalog.json if not."""
+    api_url = os.environ["WF_CATALOGUE_API_URL"].rstrip("/")
+    headers = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
+
+    resp = requests.get(f"{api_url}/api/v1.0/collections/{collection_id}", headers=headers, timeout=TIMEOUT)
+    if resp.ok:
+        return True
+
+    catalog_path = file_path.parent
+    while catalog_path.name != collection_id and catalog_path != catalog_path.parent:
+        catalog_path = catalog_path.parent
+    catalog_json = catalog_path / "catalog.json"
+
+    if catalog_json.exists():
+        data = json.loads(catalog_json.read_text(encoding="utf-8"))
+        payload = {
+            "id": collection_id,
+            "title": data.get("title", collection_id),
+            "description": data.get("description", ""),
+            "keywords": data.get("keywords", []),
+            "language": data.get("language", "en"),
+            "license": data.get("license", "proprietary"),
+        }
+    else:
+        payload = {"id": collection_id, "title": collection_id, "description": ""}
+
+    resp = requests.post(f"{api_url}/api/v1.0/collections", json=payload, headers=headers, timeout=TIMEOUT)
+    if resp.status_code in (201, 409):
+        print(f"  OK: Collection '{collection_id}' ready")
+        return True
+
+    print(f"  FAIL: Could not create collection '{collection_id}': {resp.status_code} {resp.text}")
+    return False
+
+
+def register_record(file_path: Path, token: str, catalogue_id: str) -> bool:
     """Register a single record via POST /register. On 409 Conflict, DELETE and re-POST."""
     api_url = os.environ["WF_CATALOGUE_API_URL"].rstrip("/")
     headers = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
     data = json.loads(file_path.read_text(encoding="utf-8"))
     record_id = data["id"]
+    params = {"catalogue_id": catalogue_id}
 
-    resp = requests.post(f"{api_url}/api/v1.0/register", json=data, headers=headers, timeout=TIMEOUT)
+    resp = requests.post(f"{api_url}/api/v1.0/register", json=data, headers=headers, params=params, timeout=TIMEOUT)
 
     if resp.status_code == 409:
         print(f"  Record '{record_id}' already exists, deleting and re-registering...")
@@ -87,10 +137,10 @@ def register_record(file_path: Path, token: str) -> bool:
         if del_resp.status_code not in (204, 404):
             print(f"  FAIL: Could not delete '{record_id}': {del_resp.status_code} {del_resp.text}")
             return False
-        resp = requests.post(f"{api_url}/api/v1.0/register", json=data, headers=headers, timeout=TIMEOUT)
+        resp = requests.post(f"{api_url}/api/v1.0/register", json=data, headers=headers, params=params, timeout=TIMEOUT)
 
     if resp.status_code == 201:
-        print(f"  OK: Registered '{record_id}'")
+        print(f"  OK: Registered '{record_id}' in '{catalogue_id}'")
         return True
 
     print(f"  FAIL: Could not register '{record_id}': {resp.status_code} {resp.text}")
@@ -157,7 +207,6 @@ def register_ades_process(file_path: Path, workspace_token: str) -> bool:
             ok = False
             continue
 
-        # Unregister existing process (ADES returns 403 for non-existent)
         del_resp = requests.delete(f"{processes_url}/{record_id}", headers=headers, timeout=TIMEOUT)
         if del_resp.status_code not in (200, 204, 403, 404):
             print(f"  WARN: Unregister returned {del_resp.status_code} for '{record_id}'")
@@ -248,9 +297,19 @@ def main() -> None:
                 print("  ADES registration and publishing will be skipped.")
 
     if files:
+        print(f"\n=== Ensuring collections exist ===")
+        seen_collections: set[str] = set()
+        for fp in files:
+            collection_id = get_collection_id(fp)
+            if collection_id and collection_id not in seen_collections:
+                if not ensure_collection(collection_id, fp, keycloak_token):
+                    errors.append(f"collection:{collection_id}")
+                seen_collections.add(collection_id)
+
         print(f"\n=== Registering {len(files)} record(s) in wf-catalogue-service ===")
         for fp in files:
-            if not register_record(fp, keycloak_token):
+            collection_id = get_collection_id(fp) or "eodh-workflows-notebooks"
+            if not register_record(fp, keycloak_token, collection_id):
                 errors.append(f"register:{fp}")
 
     if args.deleted_ids:

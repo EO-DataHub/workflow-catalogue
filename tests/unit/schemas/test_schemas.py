@@ -49,7 +49,7 @@ def test_catalogue(catalogue_path: Path) -> None:
 
 @pytest.mark.parametrize(
     "workflow_definition_path",
-    list((CATALOGUE_DIR / "workflows").glob("*.json")),
+    list(CATALOGUE_DIR.glob("*/workflows/*.json")),
     ids=lambda p: p.stem,
 )
 def test_catalogue_workflow(workflow_definition_path: Path) -> None:
@@ -58,12 +58,17 @@ def test_catalogue_workflow(workflow_definition_path: Path) -> None:
 
 @pytest.mark.parametrize(
     "notebook_definition_path",
-    list((CATALOGUE_DIR / "notebooks").glob("*.json")),
+    list(CATALOGUE_DIR.glob("*/notebooks/*.json")),
     ids=lambda p: p.stem,
 )
 def test_catalogue_notebook(notebook_definition_path: Path) -> None:
     EodhNotebookRecord.model_validate(json.loads(notebook_definition_path.read_text(encoding="utf-8")))
 
 
-def test_catalogue_catalog_json() -> None:
-    EodhCatalogue.model_validate(json.loads((CATALOGUE_DIR / "catalog.json").read_text(encoding="utf-8")))
+@pytest.mark.parametrize(
+    "catalog_path",
+    list(CATALOGUE_DIR.glob("*/catalog.json")),
+    ids=lambda p: p.parent.name,
+)
+def test_catalogue_catalog_json(catalog_path: Path) -> None:
+    EodhCatalogue.model_validate(json.loads(catalog_path.read_text(encoding="utf-8")))

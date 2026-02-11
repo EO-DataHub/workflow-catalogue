@@ -25,14 +25,15 @@ make validate-catalogue
 ## Adding a workflow or notebook
 
 1. Create a feature branch from `main`
-2. Copy an existing record as a template:
-   - Workflows: `catalogue/workflows/ndvi-workflow.json`
-   - Notebooks: `catalogue/notebooks/ndvi_calculation.json`
-3. Save your new file in the appropriate directory. The filename must match the `id` field (e.g. `my-workflow.json` with `"id": "my-workflow"`)
-4. Set `properties.type` to `"workflow"` or `"notebook"`
-5. Validate locally: `make validate-catalogue`
-6. Push and open a PR targeting `main` — CI validates automatically
-7. After review and merge, CD registers the record in the API
+2. Choose the target collection directory under `catalogue/` (e.g. `catalogue/eodh-workflows-notebooks/`)
+3. Copy an existing record as a template:
+   - Workflows: `catalogue/eodh-workflows-notebooks/workflows/ndvi-workflow.json`
+   - Notebooks: `catalogue/eodh-workflows-notebooks/notebooks/ndvi_calculation.json`
+4. Save your new file in the appropriate subdirectory. The filename must match the `id` field (e.g. `my-workflow.json` with `"id": "my-workflow"`)
+5. Set `properties.type` to `"workflow"` or `"notebook"`
+6. Validate locally: `make validate-catalogue`
+7. Push and open a PR targeting `main` — CI validates automatically
+8. After review and merge, CD registers the record in the API under the collection derived from the directory name
 
 See the [full guide](docs/guides/adding-records.md) for field descriptions and examples.
 

@@ -1,8 +1,8 @@
 """CI validation checks for catalogue records: STAC URL reachability and CWL syntax.
 
 Usage:
-    python scripts/validate_ci.py --files catalogue/workflows/ndvi-workflow.json
-    python scripts/validate_ci.py --files catalogue/workflows/*.json --skip-cwl
+    python scripts/validate_ci.py --files catalogue/eodh-workflows-notebooks/workflows/ndvi-workflow.json
+    python scripts/validate_ci.py --files catalogue/eodh-workflows-notebooks/workflows/*.json --skip-cwl
 """
 
 from __future__ import annotations
