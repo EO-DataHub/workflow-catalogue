@@ -40,8 +40,8 @@ jobs:
       - name: Detect changed and deleted catalogue files
         id: changes
         run: |
-          CHANGED=$(git diff --name-only --diff-filter=ACMR HEAD~1...HEAD -- 'catalogue/**/*.json' | grep -v 'catalog.json' | tr '\n' ' ')
-          DELETED_FILES=$(git diff --name-only --diff-filter=D HEAD~1...HEAD -- 'catalogue/**/*.json' | grep -v 'catalog.json')
+          CHANGED=$(git diff --name-only --diff-filter=ACMR HEAD~1...HEAD -- 'catalogue/**/*.json' | (grep -v 'catalog.json' || true) | tr '\n' ' ')
+          DELETED_FILES=$(git diff --name-only --diff-filter=D HEAD~1...HEAD -- 'catalogue/**/*.json' | (grep -v 'catalog.json' || true))
           DELETED_IDS=""
           for f in $DELETED_FILES; do
             DELETED_IDS="$DELETED_IDS $(basename "$f" .json)"
