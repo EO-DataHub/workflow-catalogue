@@ -1,0 +1,72 @@
+{
+    "id": "ndwi_notebook",
+    "type": "Feature",
+    "geometry": null,
+    "conformsTo": [
+        "http://www.opengis.net/doc/IS/ogcapi-records-1/1.0"
+    ],
+    "properties": {
+        "created": "2026-02-10T00:00:00Z",
+        "updated": "2026-02-10T00:00:00Z",
+        "type": "notebook",
+        "title": "NDWI Notebook",
+        "description": "Notebook to calculate NDWI from Sentinel-2 data",
+        "keywords": [
+            "NDWI",
+            "Sentinel-2",
+            "Remote Sensing"
+        ],
+        "language": "en",
+        "license": "Apache-2.0",
+        "applicableCollections": [
+            "https://eodatahub.org.uk/api/catalogue/stac/catalogs/public/catalogs/ceda-stac-catalogue/collections/sentinel2_ard"
+        ],
+        "contacts": [
+            {
+                "name": "Dave Dowding",
+                "organization": "Sparkgeo",
+                "roles": [
+                    "author"
+                ]
+            }
+        ],
+        "inputParameters": {
+            "STAC_COLLECTION_NAME": {
+                "label": "STAC Collection Name",
+                "type": "string",
+                "description": "STAC Collection Name"
+            },
+            "STAC_ITEM_LINK": {
+                "label": "STAC Item Link",
+                "type": "string",
+                "description": "STAC Item Link"
+            }
+        },
+        "jupyter_kernel_info": {
+            "name": "python3",
+            "python_version": 3.11,
+            "env_file": "https://example.com/environment.yml"
+        },
+        "application:type": "jupyter-notebook",
+        "application:container": false,
+        "application:language": "Python",
+        "formats": [
+            {
+                "name": "Jupyter Notebook",
+                "mediaType": "application/x-ipynb+json"
+            }
+        ]
+    },
+    "links": [
+        {
+            "rel": "application",
+            "href": "https://raw.githubusercontent.com/geodowd/example-eodh-notebooks/refs/heads/main/ndwi.ipynb",
+            "type": "application/x-ipynb+json",
+            "title": "Jupyter Notebook",
+            "jupyter:kernel": {
+                "name": "python3",
+                "pythonVersion": 3.11
+            }
+        }
+    ]
+}
