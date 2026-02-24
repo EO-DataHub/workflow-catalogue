@@ -9,7 +9,7 @@ The collection ID is derived from the file path: ``catalogue/{collection-id}/wor
 If the collection does not exist in the API, it is created from ``catalog.json`` in that directory.
 
 Environment variables:
-    WF_CATALOGUE_API_URL                        - wf-catalogue-service base URL
+    WF_CATALOGUE_API_URL                        - wf-catalogue-service full API URL
     EODH__BASE_URL                              - EODH platform base URL
     EODH__REALM                                 - Keycloak realm
     EODH__USERNAME                              - Service account username
@@ -90,7 +90,7 @@ def ensure_collection(collection_id: str, file_path: Path, token: str) -> bool:
     api_url = os.environ["WF_CATALOGUE_API_URL"].rstrip("/")
     headers = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
 
-    resp = requests.get(f"{api_url}/api/v1.0/collections/{collection_id}", headers=headers, timeout=TIMEOUT)
+    resp = requests.get(f"{api_url}/collections/{collection_id}", headers=headers, timeout=TIMEOUT)
     if resp.ok:
         return True
 
@@ -112,7 +112,7 @@ def ensure_collection(collection_id: str, file_path: Path, token: str) -> bool:
     else:
         payload = {"id": collection_id, "title": collection_id, "description": ""}
 
-    resp = requests.post(f"{api_url}/api/v1.0/collections", json=payload, headers=headers, timeout=TIMEOUT)
+    resp = requests.post(f"{api_url}/collections", json=payload, headers=headers, timeout=TIMEOUT)
     if resp.status_code in (201, 409):
         print(f"  OK: Collection '{collection_id}' ready")
         return True
@@ -129,15 +129,15 @@ def register_record(file_path: Path, token: str, catalogue_id: str) -> bool:
     record_id = data["id"]
     params = {"catalogue_id": catalogue_id}
 
-    resp = requests.post(f"{api_url}/api/v1.0/register", json=data, headers=headers, params=params, timeout=TIMEOUT)
+    resp = requests.post(f"{api_url}/register", json=data, headers=headers, params=params, timeout=TIMEOUT)
 
     if resp.status_code == 409:
         print(f"  Record '{record_id}' already exists, deleting and re-registering...")
-        del_resp = requests.delete(f"{api_url}/api/v1.0/register/{record_id}", headers=headers, timeout=TIMEOUT)
+        del_resp = requests.delete(f"{api_url}/register/{record_id}", headers=headers, timeout=TIMEOUT)
         if del_resp.status_code not in (204, 404):
             print(f"  FAIL: Could not delete '{record_id}': {del_resp.status_code} {del_resp.text}")
             return False
-        resp = requests.post(f"{api_url}/api/v1.0/register", json=data, headers=headers, params=params, timeout=TIMEOUT)
+        resp = requests.post(f"{api_url}/register", json=data, headers=headers, params=params, timeout=TIMEOUT)
 
     if resp.status_code == 201:
         print(f"  OK: Registered '{record_id}' in '{catalogue_id}'")
@@ -152,7 +152,7 @@ def delete_record(record_id: str, token: str) -> bool:
     api_url = os.environ["WF_CATALOGUE_API_URL"].rstrip("/")
     headers = {"Authorization": f"Bearer {token}"}
 
-    resp = requests.delete(f"{api_url}/api/v1.0/register/{record_id}", headers=headers, timeout=TIMEOUT)
+    resp = requests.delete(f"{api_url}/register/{record_id}", headers=headers, timeout=TIMEOUT)
 
     if resp.status_code == 204:
         print(f"  OK: Deleted '{record_id}'")
