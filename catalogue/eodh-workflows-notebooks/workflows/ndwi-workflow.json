@@ -1,5 +1,5 @@
 {
-    "id": "ndvi-workflow",
+    "id": "ndwi-workflow",
     "type": "Feature",
     "geometry": null,
     "conformsTo": [
@@ -9,10 +9,10 @@
         "created": "2024-10-14T00:00:00Z",
         "updated": "2024-10-14T00:00:00Z",
         "type": "workflow",
-        "title": "NDVI Calculation",
-        "description": "This workflow calculates the Normalized Difference Vegetation Index (NDVI) of the selected assets. NDVI is a widely used vegetation index that measures the difference between near-infrared (which vegetation strongly reflects) and red light (which vegetation absorbs).",
+        "title": "NDWI Calculation",
+        "description": "This workflow calculates the Normalized Difference Water Index (NDWI) of the selected assets. NDWI is a widely used water index that measures the difference between near-infrared (which water strongly reflects) and red light (which water absorbs).",
         "keywords": [
-            "ndvi",
+            "ndwi",
             "vegetation",
             "index",
             "sentinel2",
@@ -45,13 +45,13 @@
             "stac_item": {
                 "label": "Link to STAC Item",
                 "type": "raster",
-                "description": "Link to STAC Item to calculate NDVI from",
+                "description": "Link to STAC Item to calculate NDWI from",
                 "variableRef": "STAC_ITEM_LINK"
             },
             "bbox": {
                 "label": "Bounding Box",
                 "type": "bbox",
-                "description": "Geographic area of interest for the NDVI calculation",
+                "description": "Geographic area of interest for the NDWI calculation",
                 "variableRef": "AOI"
             }
         },
@@ -74,7 +74,7 @@
         },
         {
             "rel": "self",
-            "href": "https://eodatahub.org.uk/workflows/ndvi-workflow.json",
+            "href": "https://eodatahub.org.uk/workflows/ndwi-workflow.json",
             "type": "application/geo+json",
             "title": "This record"
         },
@@ -82,11 +82,11 @@
             "rel": "application-platform",
             "type": "application/json",
             "title": "ADES Platform Endpoint",
-            "href": "https://eodatahub.org.uk/api/catalogue/stac/catalogs/user/catalogs/sparkgeouser/processes/ndvi-workflow"
+            "href": "https://eodatahub.org.uk/api/catalogue/stac/catalogs/user/catalogs/sparkgeouser/processes/ndwi-workflow"
         },
         {
             "rel": "application",
-            "href": "https://example.com/cwl/ndvi_workflow.cwl",
+            "href": "https://example.com/cwl/ndwi_workflow.cwl",
             "type": "application/cwl+yaml",
             "title": "CWL Application Package"
         },

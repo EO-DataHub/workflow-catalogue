@@ -24,15 +24,17 @@
             "https://eodatahub.org.uk/api/catalogue/stac/catalogs/public/catalogs/ceda-stac-catalogue/collections/sentinel2_ard"
         ],
         "inputParameters": {
-            "input_cog": {
-                "label": "COG to calculate NDVI from",
+            "stac_item": {
+                "label": "Link to STAC Item",
                 "type": "raster",
-                "description": "Cloud Optimized GeoTIFF containing the spectral bands needed for NDVI calculation"
+                "description": "Link to STAC Item to calculate NDVI from",
+                "variableRef": "STAC_ITEM_LINK"
             },
             "bbox": {
                 "label": "Bounding Box",
                 "type": "bbox",
-                "description": "Geographic area of interest for the NDVI calculation"
+                "description": "Geographic area of interest for the NDVI calculation",
+                "variableRef": "AOI"
             }
         },
         "jupyter_kernel_info": {
