@@ -7,7 +7,7 @@
     ],
     "properties": {
         "created": "2026-02-10T00:00:00Z",
-        "updated": "2026-02-10T00:00:00Z",
+        "updated": "2026-03-04T00:00:00Z",
         "type": "notebook",
         "title": "NDVI Notebook",
         "description": "Notebook to calculate NDVI from Sentinel-2 data",
@@ -48,11 +48,6 @@
                 "description": "AOI in GeoJSON format"
             }
         },
-        "jupyter_kernel_info": {
-            "name": "python3",
-            "python_version": 3.11,
-            "env_file": "https://example.com/environment.yml"
-        },
         "application:type": "jupyter-notebook",
         "application:container": false,
         "application:language": "Python",
@@ -66,7 +61,7 @@
     "links": [
         {
             "rel": "self",
-            "href": "https://eodatahub.org.uk/notebooks/my-notebook-id.json",
+            "href": "https://test.eodatahub.org.uk/api/wf-catalogue/v1.0/collections/eodh-workflows-notebooks/items/ndvi_notebook",
             "type": "application/geo+json",
             "title": "This record"
         },
@@ -79,12 +74,6 @@
                 "name": "python3",
                 "pythonVersion": 3.11
             }
-        },
-        {
-            "rel": "application-platform",
-            "type": "application/json",
-            "title": "Jupyter Hub Endpoint",
-            "href": "https://eodatahub.org.uk/api/catalogue/stac/catalogs/user/catalogs/workspace/processes/my-notebook-id"
         }
     ]
 }
