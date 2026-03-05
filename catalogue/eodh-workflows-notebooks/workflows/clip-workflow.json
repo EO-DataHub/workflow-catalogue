@@ -80,7 +80,7 @@
             "rel": "application-platform",
             "type": "application/json",
             "title": "ADES Platform Endpoint",
-            "href": "https://eodatahub.org.uk/api/catalogue/stac/catalogs/user/catalogs/sparkgeotest/processes/clip-workflow"
+            "href": "https://eodatahub.org.uk/api/catalogue/stac/catalogs/user/catalogs/sparkgeouser/processes/clip-workflow"
         },
         {
             "rel": "application",

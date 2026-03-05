@@ -82,7 +82,7 @@
             "rel": "application-platform",
             "type": "application/json",
             "title": "ADES Platform Endpoint",
-            "href": "https://eodatahub.org.uk/api/catalogue/stac/catalogs/user/catalogs/sparkgeotest/processes/ndvi-workflow"
+            "href": "https://eodatahub.org.uk/api/catalogue/stac/catalogs/user/catalogs/sparkgeouser/processes/ndvi-workflow"
         },
         {
             "rel": "application",
