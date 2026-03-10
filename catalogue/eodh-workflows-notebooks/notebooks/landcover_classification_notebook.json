@@ -20,7 +20,7 @@
         "language": "en",
         "license": "Apache-2.0",
         "applicableCollections": [
-            "https://eodatahub.org.uk/api/catalogue/stac/catalogs/public/catalogs/ceda-stac-catalogue/collections/sentinel2_ard"
+            "sentinel2_ard"
         ],
         "contacts": [
             {
