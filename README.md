@@ -48,6 +48,7 @@ Read more here:
 - [Development env setup](docs/guides/setup-dev-env.md)
 - [Contributing](docs/guides/contributing.md)
 - [Adding records](docs/guides/adding-records.md)
+- [Workflow/notebook inputs](docs/guides/workflow-and-notebook-inputs.md)
 - [QA testing](docs/guides/qa-testing.md)
 - [Makefile usage](docs/guides/makefile-usage.md)
 - [Running tests](docs/guides/tests.md)
