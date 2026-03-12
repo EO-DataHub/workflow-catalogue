@@ -82,7 +82,7 @@ def validate_catalogue(
             _validate_schema(file_path)
             _logger.info("PASS: %s", file_path)
         except Exception as exc:
-            _logger.error("FAIL: %s\n  %s", file_path, exc)
+            _logger.exception("FAIL: %s", file_path)
             errors.append((file_path, exc))
 
     if errors:

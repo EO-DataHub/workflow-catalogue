@@ -23,11 +23,11 @@
         "language": "en",
         "license": "Apache-2.0",
         "applicableCollections": [
-            "https://eodatahub.org.uk/api/catalogue/stac/catalogs/public/catalogs/ceda-stac-catalogue/collections/eocis-lst-s3b-night",
-            "https://eodatahub.org.uk/api/catalogue/stac/catalogs/public/catalogs/ceda-stac-catalogue/collections/eocis-lst-s3b-day",
-            "https://eodatahub.org.uk/api/catalogue/stac/catalogs/public/catalogs/ceda-stac-catalogue/collections/eocis-lst-s3a-night",
-            "https://eodatahub.org.uk/api/catalogue/stac/catalogs/public/catalogs/ceda-stac-catalogue/collections/eocis-lst-s3a-day",
-            "https://eodatahub.org.uk/api/catalogue/stac/catalogs/public/catalogs/ceda-stac-catalogue/collections/eocis-lst-day"
+            "eocis-lst-s3b-night",
+            "eocis-lst-s3b-day",
+            "eocis-lst-s3a-night",
+            "eocis-lst-s3a-day",
+            "eocis-lst-day"
         ],
         "contacts": [
             {

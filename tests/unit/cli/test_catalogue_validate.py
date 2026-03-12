@@ -44,7 +44,7 @@ def test_validate_catalogue_single_workflow_via_changed_files() -> None:
 
 def test_validate_catalogue_single_notebook_via_changed_files() -> None:
     """Validates a single notebook file using --changed-files."""
-    nb_file = CATALOGUE_DIR / "eodh-workflows-notebooks" / "notebooks" / "ndvi_calculation.json"
+    nb_file = CATALOGUE_DIR / "eodh-workflows-notebooks" / "notebooks" / "ndvi_notebook.json"
     runner = CliRunner()
     result = runner.invoke(
         validate_catalogue,

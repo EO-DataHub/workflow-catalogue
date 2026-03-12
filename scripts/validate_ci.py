@@ -58,7 +58,7 @@ def check_stac_urls(files: list[Path]) -> list[str]:
 
 def check_cwl_links(files: list[Path]) -> list[str]:
     """Fetch CWL files referenced in records and validate with cwltool."""
-    errors = []
+    errors: list[str] = []
     for fp in files:
         data = json.loads(fp.read_text(encoding="utf-8"))
         cwl_links = [
@@ -123,9 +123,10 @@ def main() -> None:
 
     errors: list[str] = []
 
-    if not args.skip_stac:
-        print("=== STAC Collection URL Validation ===")
-        errors.extend(check_stac_urls(files))
+    # Disabled: applicableCollections now contains collection names, not URLs
+    # if not args.skip_stac:
+    #     print("=== STAC Collection URL Validation ===")
+    #     errors.extend(check_stac_urls(files))
 
     if not args.skip_cwl:
         print("=== CWL Link Validation ===")
