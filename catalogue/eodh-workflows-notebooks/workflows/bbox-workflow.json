@@ -7,7 +7,7 @@
     ],
     "properties": {
         "created": "2024-10-14T00:00:00Z",
-        "updated": "2024-10-14T00:00:00Z",
+        "updated": "2026-03-12T00:00:00Z",
         "type": "workflow",
         "title": "BBOX Workflow",
         "description": "This workflow clips a dataset with a bounding box. It extracts a spatial subset of the input data based on the provided geographic coordinates, useful for focusing analysis on specific areas of interest.",
