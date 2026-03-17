@@ -41,6 +41,11 @@
                 "label": "STAC Item Link",
                 "type": "string",
                 "description": "STAC Item Link"
+            },
+            "AOI": {
+                "label": "AOI",
+                "type": "string",
+                "description": "AOI in GeoJSON format"
             }
         },
         "application:type": "jupyter-notebook",
