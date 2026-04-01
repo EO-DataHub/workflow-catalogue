@@ -1,28 +1,26 @@
 {
-    "id": "ndvi-workflow",
+    "id": "clip-workflow",
     "type": "Feature",
     "geometry": null,
     "conformsTo": [
         "http://www.opengis.net/doc/IS/ogcapi-records-1/1.0"
     ],
     "properties": {
-        "created": "2026-01-01T00:00:00Z",
-        "updated": "2026-03-04T00:00:00Z",
+        "created": "2026-03-01T00:00:00Z",
+        "updated": "2026-03-12T00:00:00Z",
         "type": "workflow",
-        "title": "NDVI Calculation",
-        "description": "This workflow calculates the Normalized Difference Vegetation Index (NDVI) of the selected assets. NDVI is a widely used vegetation index that measures the difference between near-infrared (which vegetation strongly reflects) and red light (which vegetation absorbs).",
+        "title": "Clip Asset",
+        "description": "This workflow clips the main asset to the provided bounding box.",
         "keywords": [
-            "ndvi",
-            "vegetation",
-            "index",
-            "sentinel2",
-            "analysis",
-            "remote sensing"
+            "clip",
+            "bbox",
+            "subset"
         ],
         "language": "en",
         "license": "Apache-2.0",
         "applicableCollections": [
-            "sentinel2_ard"
+            "sentinel2_ard",
+            "sentinel1_ard"
         ],
         "contacts": [
             {
@@ -45,13 +43,13 @@
             "stac_item": {
                 "label": "Link to STAC Item",
                 "type": "raster",
-                "description": "Link to STAC Item to calculate NDVI from",
+                "description": "Link to STAC Item to calculate Clip from",
                 "variableRef": "STAC_ITEM_LINK"
             },
             "bbox": {
                 "label": "Bounding Box",
                 "type": "bbox",
-                "description": "Geographic area of interest for the NDVI calculation",
+                "description": "Geographic area of interest for the Clip calculation",
                 "variableRef": "AOI"
             }
         },
@@ -74,7 +72,7 @@
         },
         {
             "rel": "self",
-            "href": "https://eodatahub.org.uk/api/wf-catalogue/v1.0/collections/eodh-workflows-notebooks/items/ndvi-workflow",
+            "href": "https://eodatahub.org.uk/api/wf-catalogue/v1.0/collections/eodh-workflows-notebooks/items/clip-workflow",
             "type": "application/geo+json",
             "title": "This record"
         },
@@ -82,11 +80,11 @@
             "rel": "application-platform",
             "type": "application/json",
             "title": "ADES Platform Endpoint",
-            "href": "https://eodatahub.org.uk/api/catalogue/stac/catalogs/user/catalogs/discoveryreg/processes/ndvi-workflow"
+            "href": "https://eodatahub.org.uk/api/catalogue/stac/catalogs/user/catalogs/discoveryreg/processes/clip-workflow"
         },
         {
             "rel": "application",
-            "href": "https://raw.githubusercontent.com/geodowd/ndvi/refs/heads/main/ndvi.cwl",
+            "href": "https://raw.githubusercontent.com/geodowd/ndvi/refs/heads/clip/clip.cwl",
             "type": "application/cwl+yaml",
             "title": "CWL Application Package"
         },
@@ -94,7 +92,7 @@
             "rel": "vcs",
             "type": "text/html",
             "title": "Source Code Repository",
-            "href": "https://github.com/geodowd/ndvi"
+            "href": "https://github.com/geodowd/ndvi/tree/clip"
         }
     ]
 }
