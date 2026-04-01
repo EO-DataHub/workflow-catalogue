@@ -159,8 +159,11 @@ Expected: `403 Forbidden` (no Bearer token).
 ## 4. Testing a new record
 
 1. Create a feature branch and add a new JSON file to `catalogue/{collection-id}/workflows/` or `catalogue/{collection-id}/notebooks/`
+
 2. Open a PR — verify CI passes
+
 3. Merge the PR — verify CD runs
+
 4. Query the API to confirm the new record appears:
 
     ```shell
@@ -178,7 +181,9 @@ Expected: `403 Forbidden` (no Bearer token).
 ## 6. Testing record deletion
 
 1. Delete a JSON file from `catalogue/`
+
 2. Open a PR, merge it
+
 3. Query the API and verify the record returns `404`:
 
     ```shell
@@ -191,19 +196,19 @@ After the initial deployment, these records should exist:
 
 **Workflows:**
 
-| ID | Title |
-|----|-------|
-| `ndvi-workflow` | NDVI Calculation |
-| `bbox-workflow` | BBox Spatial Filter |
-| `lst-min-max` | Land Surface Temperature (LST) - Monthly (avg), Day & Night |
-| `echo` | Echo |
-| `token-access-2` | Token Access v2 |
+| ID               | Title                                                       |
+| ---------------- | ----------------------------------------------------------- |
+| `ndvi-workflow`  | NDVI Calculation                                            |
+| `bbox-workflow`  | BBox Spatial Filter                                         |
+| `lst-min-max`    | Land Surface Temperature (LST) - Monthly (avg), Day & Night |
+| `echo`           | Echo                                                        |
+| `token-access-2` | Token Access v2                                             |
 
 **Notebooks:**
 
-| ID | Title |
-|----|-------|
-| `ndvi_calculation` | NDVI Calculation Notebook |
-| `cog_preview` | COG Preview Notebook |
-| `stats_look` | Statistics Look Notebook |
+| ID                       | Title                           |
+| ------------------------ | ------------------------------- |
+| `ndvi_calculation`       | NDVI Calculation Notebook       |
+| `cog_preview`            | COG Preview Notebook            |
+| `stats_look`             | Statistics Look Notebook        |
 | `mean_value_calculation` | Mean Value Calculation Notebook |

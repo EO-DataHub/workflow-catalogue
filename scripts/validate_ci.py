@@ -17,48 +17,27 @@ from urllib.parse import urlparse
 
 import requests
 
-STAC_TIMEOUT = 10
-STAC_RETRIES = 2
 CWL_FETCH_TIMEOUT = 15
 CWL_VALIDATE_TIMEOUT = 30
 
 
-def check_stac_urls(files: list[Path]) -> list[str]:
-    """Check that applicableCollections URLs return 200."""
-    url_to_files: dict[str, list[str]] = {}
+def check_applicable_collections(files: list[Path]) -> list[str]:
+    """Check that applicableCollections is not empty."""
+    errors = []
     for fp in files:
         data = json.loads(fp.read_text(encoding="utf-8"))
-        for url in data.get("properties", {}).get("applicableCollections", []):
-            url_to_files.setdefault(url, []).append(str(fp))
-
-    if not url_to_files:
-        print("No STAC collection URLs found.")
-        return []
-
-    print(f"Checking {len(url_to_files)} unique STAC collection URL(s)...")
-    unreachable = []
-    for url, refs in url_to_files.items():
-        ok = False
-        for _ in range(STAC_RETRIES + 1):
-            try:
-                if requests.get(url, timeout=STAC_TIMEOUT).ok:
-                    ok = True
-                    break
-            except requests.RequestException:
-                pass
-
-        if ok:
-            print(f"  REACHABLE: {url}")
+        collections = data.get("properties", {}).get("applicableCollections", [])
+        if not collections:
+            print(f"  FAIL: {fp} has empty applicableCollections")
+            errors.append(str(fp))
         else:
-            print(f"  UNREACHABLE: {url} (referenced by: {', '.join(refs)})")
-            unreachable.append(url)
-
-    return unreachable
+            print(f"  PASS: {fp} has {len(collections)} collection(s)")
+    return errors
 
 
 def check_cwl_links(files: list[Path]) -> list[str]:
     """Fetch CWL files referenced in records and validate with cwltool."""
-    errors = []
+    errors: list[str] = []
     for fp in files:
         data = json.loads(fp.read_text(encoding="utf-8"))
         cwl_links = [
@@ -112,7 +91,7 @@ def check_cwl_links(files: list[Path]) -> list[str]:
 def main() -> None:
     parser = argparse.ArgumentParser(description="CI validation: STAC URLs and CWL links.")
     parser.add_argument("--files", nargs="+", required=True, help="Catalogue JSON files to check.")
-    parser.add_argument("--skip-stac", action="store_true", help="Skip STAC URL checks.")
+    parser.add_argument("--skip-stac", action="store_true", help="Skip applicableCollections checks.")
     parser.add_argument("--skip-cwl", action="store_true", help="Skip CWL link checks.")
     args = parser.parse_args()
 
@@ -124,8 +103,8 @@ def main() -> None:
     errors: list[str] = []
 
     if not args.skip_stac:
-        print("=== STAC Collection URL Validation ===")
-        errors.extend(check_stac_urls(files))
+        print("=== Applicable Collections Validation ===")
+        errors.extend(check_applicable_collections(files))
 
     if not args.skip_cwl:
         print("=== CWL Link Validation ===")

@@ -6,8 +6,8 @@
         "http://www.opengis.net/doc/IS/ogcapi-records-1/1.0"
     ],
     "properties": {
-        "created": "2024-10-14T00:00:00Z",
-        "updated": "2024-10-14T00:00:00Z",
+        "created": "2026-01-01T00:00:00Z",
+        "updated": "2026-03-04T00:00:00Z",
         "type": "workflow",
         "title": "NDVI Calculation",
         "description": "This workflow calculates the Normalized Difference Vegetation Index (NDVI) of the selected assets. NDVI is a widely used vegetation index that measures the difference between near-infrared (which vegetation strongly reflects) and red light (which vegetation absorbs).",
@@ -22,7 +22,7 @@
         "language": "en",
         "license": "Apache-2.0",
         "applicableCollections": [
-            "https://eodatahub.org.uk/api/catalogue/stac/catalogs/public/catalogs/ceda-stac-catalogue/collections/sentinel2_ard"
+            "sentinel2_ard"
         ],
         "contacts": [
             {
@@ -42,15 +42,17 @@
             }
         ],
         "inputParameters": {
-            "input_cog": {
-                "label": "COG to calculate NDVI from",
+            "stac_item": {
+                "label": "Link to STAC Item",
                 "type": "raster",
-                "description": "Cloud Optimized GeoTIFF containing the spectral bands needed for NDVI calculation"
+                "description": "Link to STAC Item to calculate NDVI from",
+                "variableRef": "STAC_ITEM_LINK"
             },
             "bbox": {
                 "label": "Bounding Box",
                 "type": "bbox",
-                "description": "Geographic area of interest for the NDVI calculation"
+                "description": "Geographic area of interest for the NDVI calculation",
+                "variableRef": "AOI"
             }
         },
         "application:type": "cwl",
@@ -60,19 +62,19 @@
     "links": [
         {
             "rel": "root",
-            "href": "../catalog.json",
+            "href": "https://eodatahub.org.uk/api/wf-catalogue/v1.0/collections",
             "type": "application/json",
             "title": "EODH Workflows and Notebooks Catalog"
         },
         {
             "rel": "parent",
-            "href": "../catalog.json",
+            "href": "https://eodatahub.org.uk/api/wf-catalogue/v1.0/collections",
             "type": "application/json",
             "title": "Workflows and Notebooks"
         },
         {
             "rel": "self",
-            "href": "https://eodatahub.org.uk/workflows/ndvi-workflow.json",
+            "href": "https://eodatahub.org.uk/api/wf-catalogue/v1.0/collections/eodh-workflows-notebooks/items/ndvi-workflow",
             "type": "application/geo+json",
             "title": "This record"
         },
@@ -80,11 +82,11 @@
             "rel": "application-platform",
             "type": "application/json",
             "title": "ADES Platform Endpoint",
-            "href": "https://eodatahub.org.uk/api/catalogue/stac/catalogs/user/catalogs/exampleuser/processes/ndvi-workflow"
+            "href": "https://eodatahub.org.uk/api/catalogue/stac/catalogs/user/catalogs/sparkgeouser/processes/ndvi-workflow"
         },
         {
             "rel": "application",
-            "href": "https://example.com/cwl/ndvi_workflow.cwl",
+            "href": "https://raw.githubusercontent.com/geodowd/ndvi/refs/heads/main/ndvi.cwl",
             "type": "application/cwl+yaml",
             "title": "CWL Application Package"
         },
@@ -92,7 +94,7 @@
             "rel": "vcs",
             "type": "text/html",
             "title": "Source Code Repository",
-            "href": "https://github.com/EO-DataHub/eodh-workflows"
+            "href": "https://github.com/geodowd/ndvi"
         }
     ]
 }

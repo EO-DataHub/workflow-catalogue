@@ -6,7 +6,7 @@ from datetime import datetime  # noqa: TC003
 from enum import Enum
 
 from geojson_pydantic.geometries import Geometry  # noqa: TC002
-from pydantic import AnyUrl, BaseModel, Field
+from pydantic import BaseModel, Field
 
 from workflow_catalogue.schemas.common import Link, Role  # noqa: TC001
 
@@ -38,10 +38,10 @@ class Properties(BaseModel):
     keywords: list[str] = Field(..., description="Keywords for discovery and categorization", min_length=1)
     language: str = Field(pattern=r"^[a-z]{2}(-[A-Z]{2})?$", description="Language code (ISO 639-1)")
     license: str | None = Field(None, description="License identifier (e.g., Apache-2.0, MIT, proprietary)")
-    applicable_collections: list[AnyUrl] = Field(
+    applicable_collections: list[str] = Field(
         ...,
         alias="applicableCollections",
-        description="Array of STAC collection URLs that this workflow/notebook can process",
+        description="Array of STAC collection identifiers that this workflow/notebook can process",
     )
     contacts: list[Contact] | None = Field(
         default_factory=list,
