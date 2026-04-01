@@ -7,7 +7,7 @@
     ],
     "properties": {
         "created": "2026-01-01T00:00:00Z",
-        "updated": "2026-03-04T00:00:00Z",
+        "updated": "2026-03-05T00:00:00Z",
         "type": "workflow",
         "title": "NDVI Calculation",
         "description": "This workflow calculates the Normalized Difference Vegetation Index (NDVI) of the selected assets. NDVI is a widely used vegetation index that measures the difference between near-infrared (which vegetation strongly reflects) and red light (which vegetation absorbs).",
