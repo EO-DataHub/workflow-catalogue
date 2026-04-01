@@ -64,7 +64,7 @@ def get_keycloak_token() -> str:
         timeout=TIMEOUT,
     )
     resp.raise_for_status()
-    return resp.json()["access_token"]
+    return str(resp.json()["access_token"])
 
 
 def get_workspace_token(keycloak_token: str, workspace: str) -> str:
@@ -82,11 +82,15 @@ def get_workspace_token(keycloak_token: str, workspace: str) -> str:
         timeout=TIMEOUT,
     )
     resp.raise_for_status()
-    return resp.json()["access"]
+    return str(resp.json()["access"])
 
 
 def ensure_collection(collection_id: str, file_path: Path, token: str) -> bool:
-    """Ensure collection exists in the API. Create from catalog.json if not."""
+    """Ensure collection exists in the API.
+
+    Create from catalog.json if not.
+
+    """
     api_url = os.environ["WF_CATALOGUE_API_URL"].rstrip("/")
     headers = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
 
@@ -122,7 +126,11 @@ def ensure_collection(collection_id: str, file_path: Path, token: str) -> bool:
 
 
 def register_record(file_path: Path, token: str, catalogue_id: str) -> bool:
-    """Register a single record via POST /register. On 409 Conflict, DELETE and re-POST."""
+    """Register a single record via POST /register.
+
+    On 409 Conflict, DELETE and re-POST.
+
+    """
     api_url = os.environ["WF_CATALOGUE_API_URL"].rstrip("/")
     headers = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
     data = json.loads(file_path.read_text(encoding="utf-8"))
@@ -335,8 +343,8 @@ def main() -> None:
 
     if errors:
         print(f"\n{len(errors)} error(s):")
-        for e in errors:
-            print(f"  - {e}")
+        for err in errors:
+            print(f"  - {err}")
         sys.exit(1)
 
     print("\nAll CD steps completed successfully.")

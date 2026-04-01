@@ -27,8 +27,8 @@ make validate-catalogue
 1. Create a feature branch from `main`
 2. Choose the target collection directory under `catalogue/` (e.g. `catalogue/eodh-workflows-notebooks/`)
 3. Copy an existing record as a template:
-   - Workflows: `catalogue/eodh-workflows-notebooks/workflows/ndvi-workflow.json`
-   - Notebooks: `catalogue/eodh-workflows-notebooks/notebooks/ndvi_calculation.json`
+    - Workflows: `catalogue/eodh-workflows-notebooks/workflows/ndvi-workflow.json`
+    - Notebooks: `catalogue/eodh-workflows-notebooks/notebooks/ndvi_calculation.json`
 4. Save your new file in the appropriate subdirectory. The filename must match the `id` field (e.g. `my-workflow.json` with `"id": "my-workflow"`)
 5. Set `properties.type` to `"workflow"` or `"notebook"`
 6. Validate locally: `make validate-catalogue`

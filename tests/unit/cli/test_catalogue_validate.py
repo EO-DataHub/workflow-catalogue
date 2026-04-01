@@ -42,13 +42,13 @@ def test_validate_catalogue_single_workflow_via_changed_files() -> None:
     assert result.exit_code == 0
 
 
-def test_validate_catalogue_single_notebook_via_changed_files() -> None:
-    """Validates a single notebook file using --changed-files."""
-    nb_file = CATALOGUE_DIR / "eodh-workflows-notebooks" / "notebooks" / "ndvi_calculation.json"
+def test_validate_catalogue_single_file_via_changed_files() -> None:
+    """Validates a single file using --changed-files."""
+    wf_file = CATALOGUE_DIR / "eodh-workflows-notebooks" / "workflows" / "ndvi-workflow.json"
     runner = CliRunner()
     result = runner.invoke(
         validate_catalogue,
-        ["--catalogue-path", str(CATALOGUE_DIR), "--changed-files", str(nb_file)],
+        ["--catalogue-path", str(CATALOGUE_DIR), "--changed-files", str(wf_file)],
     )
     assert result.exit_code == 0
 
