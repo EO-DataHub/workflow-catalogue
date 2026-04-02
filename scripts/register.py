@@ -34,7 +34,7 @@ from typing import Any
 import requests
 
 TIMEOUT = 30
-OGC_PROCESSES_PATH = "ogc-api/processes"
+OGC_PROCESSES_PATH = "processes"
 
 def truncate(text: str, max_len: int = 600) -> str:
     if len(text) <= max_len:
