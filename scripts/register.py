@@ -63,6 +63,17 @@ def get_keycloak_token() -> str:
         },
         timeout=TIMEOUT,
     )
+
+    if not resp.ok:
+        safe_diag = {
+            "token_url": token_url,
+            "realm": realm,
+            "client_id_set": bool(os.environ.get("EODH__CLIENT_ID")),
+            "username_len": len(os.environ.get("EODH__USERNAME", "")),
+        }
+        print(f"  Keycloak token request failed: {resp.status_code} {resp.text}")
+        print(f"  Keycloak token request context: {json.dumps(safe_diag)}")
+
     resp.raise_for_status()
     return str(resp.json()["access_token"])
 
