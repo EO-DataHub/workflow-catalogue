@@ -110,7 +110,10 @@ def get_workspace_token(keycloak_token: str, workspace: str) -> str:
     """Exchange Keycloak token for a workspace-scoped session token."""
     base_url = os.environ["EODH__BASE_URL"]
     ws_path = os.environ["EODH__WORKSPACE_SERVICES_ENDPOINT_PATH"]
-    sessions_url = urljoin(base_url, f"{ws_path}/{workspace}/me/sessions")
+    # Workspace session token exchange is keyed off the service account username.
+    # The returned token is later used for workspace-scoped publish/register calls.
+    username = os.environ["EODH__USERNAME"]
+    sessions_url = urljoin(base_url, f"{ws_path}/{username}/me/sessions")
 
     print(f"  DEBUG: workspace session URL: {sessions_url}")
     resp = requests.post(
