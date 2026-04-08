@@ -1,0 +1,113 @@
+{
+    "id": "lulc-change-workflow",
+    "type": "Feature",
+    "geometry": null,
+    "conformsTo": [
+        "http://www.opengis.net/doc/IS/ogcapi-records-1/1.0"
+    ],
+    "properties": {
+        "created": "2026-04-08T00:00:00Z",
+        "updated": "2026-04-08T00:00:00Z",
+        "type": "workflow",
+        "title": "Land Use / Land Cover Change",
+        "description": "This workflow detects Land Use and Land Cover (LULC) changes over a specified area and time range. It compares land cover classifications between two dates to identify transitions such as urbanisation, deforestation, or agricultural expansion.",
+        "keywords": [
+            "lulc",
+            "land use",
+            "land cover",
+            "change detection",
+            "sentinel2",
+            "analysis",
+            "remote sensing"
+        ],
+        "language": "en",
+        "license": "Apache-2.0",
+        "applicableCollections": [
+            "sentinel2_ard"
+        ],
+        "contacts": [
+            {
+                "name": "EODH Platform Team",
+                "organization": "EO DataHub",
+                "roles": [
+                    "author"
+                ],
+                "links": [
+                    {
+                        "href": "https://eodatahub.org.uk",
+                        "rel": "about",
+                        "type": "text/html",
+                        "title": "EO DataHub Platform"
+                    }
+                ]
+            }
+        ],
+        "inputParameters": {
+            "source": {
+                "label": "Data Source",
+                "type": "string",
+                "description": "Data source to be processed",
+                "variableRef": "SOURCE"
+            },
+            "aoi": {
+                "label": "Area of Interest",
+                "type": "bbox",
+                "description": "Area of interest as GeoJSON",
+                "variableRef": "AOI"
+            },
+            "date_start": {
+                "label": "Start Date",
+                "type": "string",
+                "description": "Start date for data queries in ISO 8601",
+                "variableRef": "DATE_START"
+            },
+            "date_end": {
+                "label": "End Date",
+                "type": "string",
+                "description": "End date for data queries in ISO 8601",
+                "variableRef": "DATE_END"
+            }
+        },
+        "application:type": "cwl",
+        "application:container": true,
+        "application:language": "CWL"
+    },
+    "links": [
+        {
+            "rel": "root",
+            "href": "https://eodatahub.org.uk/api/wf-catalogue/v1.0/collections",
+            "type": "application/json",
+            "title": "EODH Workflows and Notebooks Catalog"
+        },
+        {
+            "rel": "parent",
+            "href": "https://eodatahub.org.uk/api/wf-catalogue/v1.0/collections",
+            "type": "application/json",
+            "title": "Workflows and Notebooks"
+        },
+        {
+            "rel": "self",
+            "href": "https://eodatahub.org.uk/api/wf-catalogue/v1.0/collections/eodh-workflows-notebooks/items/lulc-change-workflow",
+            "type": "application/geo+json",
+            "title": "This record"
+        },
+        {
+            "rel": "application-platform",
+            "type": "application/json",
+            "title": "ADES Platform Endpoint",
+            "href": "https://eodatahub.org.uk/api/catalogue/stac/catalogs/user/catalogs/discoveryreg/processes/lulc-change-workflow"
+        },
+        {
+            "rel": "application",
+            "href": "https://raw.githubusercontent.com/EO-DataHub/eodh-workflows/394d42c726ccbdfe397f13959e0bcaa267fcfeb2/cwl_files/lulc-change-app.cwl",
+            "type": "application/cwl+yaml",
+            "title": "CWL Application Package"
+        },
+        {
+            "rel": "vcs",
+            "type": "text/html",
+            "title": "Source Code Repository",
+            "href": "https://github.com/EO-DataHub/eodh-workflows"
+        }
+    ]
+}
