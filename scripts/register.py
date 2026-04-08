@@ -43,10 +43,10 @@ def truncate(text: str, max_len: int = 600) -> str:
 
 
 def decode_jwt_payload(token: str) -> dict[str, Any] | None:
-    """
-    Decode a JWT payload for debugging purposes.
+    """Decode a JWT payload for debugging purposes.
 
     Note: this does not validate signatures; it's only to inspect token claims.
+
     """
     try:
         parts = token.split(".")
@@ -56,7 +56,8 @@ def decode_jwt_payload(token: str) -> dict[str, Any] | None:
         # Base64url padding
         payload_b64 += "=" * (-len(payload_b64) % 4)
         raw = base64.urlsafe_b64decode(payload_b64.encode("utf-8"))
-        return json.loads(raw)
+        result: dict[str, Any] = json.loads(raw)
+        return result
     except Exception:
         return None
 

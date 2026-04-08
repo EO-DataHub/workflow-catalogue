@@ -7,7 +7,7 @@
     ],
     "properties": {
         "created": "2026-01-01T00:00:00Z",
-        "updated": "2026-03-04T00:00:00Z",
+        "updated": "2026-03-05T00:00:00Z",
         "type": "workflow",
         "title": "NDWI Calculation",
         "description": "This workflow calculates the Normalized Difference Water Index (NDWI) of the selected assets. NDWI is a widely used water index that measures the difference between near-infrared (which water strongly reflects) and red light (which water absorbs).",
