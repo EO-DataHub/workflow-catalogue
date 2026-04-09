@@ -88,14 +88,18 @@ def get_keycloak_token() -> str:
     """Get Keycloak access token via password grant."""
     base_url = os.environ["EODH__BASE_URL"]
     realm = os.environ["EODH__REALM"]
+    client_id = os.environ["EODH__CLIENT_ID"]
+    username = os.environ["EODH__USERNAME"]
     token_url = urljoin(base_url, f"/keycloak/realms/{realm}/protocol/openid-connect/token")
 
+    print(f"  DEBUG: keycloak token URL: {token_url}")
+    print(f"  DEBUG: keycloak client_id='{client_id}' username='{username}'")
     resp = requests.post(
         token_url,
         headers={"Content-Type": "application/x-www-form-urlencoded"},
         data={
-            "client_id": os.environ["EODH__CLIENT_ID"],
-            "username": os.environ["EODH__USERNAME"],
+            "client_id": client_id,
+            "username": username,
             "password": os.environ["EODH__PASSWORD"],
             "grant_type": "password",
             "scope": "openid",
@@ -116,6 +120,7 @@ def get_workspace_token(keycloak_token: str, workspace: str) -> str:
     username = os.environ["EODH__USERNAME"]
     sessions_url = urljoin(base_url, f"{ws_path}/{username}/me/sessions")
 
+    print(f"  DEBUG: workspace token exchange username='{username}' workspace='{workspace}'")
     print(f"  DEBUG: workspace session URL: {sessions_url}")
     resp = requests.post(
         sessions_url,
