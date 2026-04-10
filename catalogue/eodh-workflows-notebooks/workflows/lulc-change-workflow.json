@@ -7,7 +7,7 @@
     ],
     "properties": {
         "created": "2026-04-08T00:00:00Z",
-        "updated": "2026-04-09T00:00:00Z",
+        "updated": "2026-04-10T00:00:00Z",
         "type": "workflow",
         "title": "Land Use / Land Cover Change",
         "description": "This workflow detects Land Use and Land Cover (LULC) changes over a specified area and time range. It compares land cover classifications between two dates to identify transitions such as urbanisation, deforestation, or agricultural expansion.",

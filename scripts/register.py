@@ -117,7 +117,6 @@ def get_workspace_token(keycloak_token: str, workspace: str) -> str:
     ws_path = os.environ["EODH__WORKSPACE_SERVICES_ENDPOINT_PATH"]
     sessions_url = urljoin(base_url, f"{ws_path}/{workspace}/me/sessions")
 
-    print(f"  DEBUG: workspace token exchange username='{username}' workspace='{workspace}'")
     print(f"  DEBUG: workspace session URL: {sessions_url}")
     resp = requests.post(
         sessions_url,
