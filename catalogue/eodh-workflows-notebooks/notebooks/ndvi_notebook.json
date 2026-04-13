@@ -67,7 +67,7 @@
         },
         {
             "rel": "application",
-            "href": "https://raw.githubusercontent.com/geodowd/example-eodh-notebooks/refs/heads/main/ndvi.ipynb",
+            "href": "https://raw.githubusercontent.com/geodowd/example-eodh-notebooks/refs/heads/band_selection/ndvi.ipynb",
             "type": "application/x-ipynb+json",
             "title": "Jupyter Notebook",
             "jupyter:kernel": {
