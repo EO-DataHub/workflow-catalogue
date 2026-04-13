@@ -20,7 +20,8 @@
         "license": "Apache-2.0",
         "applicableCollections": [
             "sentinel2_ard",
-            "sentinel1_ard"
+            "sentinel1_ard",
+            "sentinel-2-c1-l2a"
         ],
         "contacts": [
             {
@@ -60,19 +61,19 @@
     "links": [
         {
             "rel": "root",
-            "href": "https://test.eodatahub.org.uk/api/wf-catalogue/v1.0/collections",
+            "href": "https://eodatahub.org.uk/api/wf-catalogue/v1.0/collections",
             "type": "application/json",
             "title": "EODH Workflows and Notebooks Catalog"
         },
         {
             "rel": "parent",
-            "href": "https://test.eodatahub.org.uk/api/wf-catalogue/v1.0/collections",
+            "href": "https://eodatahub.org.uk/api/wf-catalogue/v1.0/collections",
             "type": "application/json",
             "title": "Workflows and Notebooks"
         },
         {
             "rel": "self",
-            "href": "https://test.eodatahub.org.uk/api/wf-catalogue/v1.0/collections/eodh-workflows-notebooks/items/clip-workflow",
+            "href": "https://eodatahub.org.uk/api/wf-catalogue/v1.0/collections/eodh-workflows-notebooks/items/clip-workflow",
             "type": "application/geo+json",
             "title": "This record"
         },
@@ -80,7 +81,7 @@
             "rel": "application-platform",
             "type": "application/json",
             "title": "ADES Platform Endpoint",
-            "href": "https://eodatahub.org.uk/api/catalogue/stac/catalogs/user/catalogs/sparkgeouser/processes/clip-workflow"
+            "href": "https://eodatahub.org.uk/api/catalogue/stac/catalogs/user/catalogs/discoveryreg/processes/clip-workflow"
         },
         {
             "rel": "application",

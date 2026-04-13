@@ -20,7 +20,7 @@
         "license": "Apache-2.0",
         "applicableCollections": [
             "sentinel2_ard",
-            "my-platero-l1C-cogs"
+            "sentinel-2-c1-l2a"
         ],
         "contacts": [
             {

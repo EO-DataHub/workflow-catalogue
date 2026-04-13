@@ -20,7 +20,8 @@
         "language": "en",
         "license": "Apache-2.0",
         "applicableCollections": [
-            "sentinel2_ard"
+            "sentinel2_ard",
+            "sentinel-2-c1-l2a"
         ],
         "contacts": [
             {
