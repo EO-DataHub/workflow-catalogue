@@ -86,7 +86,7 @@
         },
         {
             "rel": "application",
-            "href": "https://raw.githubusercontent.com/geodowd/ndvi/refs/heads/main/ndvi.cwl",
+            "href": "https://raw.githubusercontent.com/geodowd/ndvi/refs/heads/prod/ndvi.cwl",
             "type": "application/cwl+yaml",
             "title": "CWL Application Package"
         },
