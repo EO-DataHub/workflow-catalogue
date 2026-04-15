@@ -19,7 +19,8 @@
         "language": "en",
         "license": "Apache-2.0",
         "applicableCollections": [
-            "sentinel2_ard"
+            "sentinel2_ard",
+            "sentinel-2-c1-l2a"
         ],
         "contacts": [
             {
@@ -60,7 +61,7 @@
     "links": [
         {
             "rel": "application",
-            "href": "https://raw.githubusercontent.com/geodowd/example-eodh-notebooks/refs/heads/main/ndwi.ipynb",
+            "href": "https://raw.githubusercontent.com/geodowd/example-eodh-notebooks/refs/heads/band_selection/ndwi.ipynb",
             "type": "application/x-ipynb+json",
             "title": "Jupyter Notebook",
             "jupyter:kernel": {

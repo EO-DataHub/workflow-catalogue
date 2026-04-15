@@ -7,7 +7,7 @@
     ],
     "properties": {
         "created": "2026-03-01T00:00:00Z",
-        "updated": "2026-03-13T00:00:00Z",
+        "updated": "2026-03-15T00:00:00Z",
         "type": "workflow",
         "title": "Clip Asset",
         "description": "This workflow clips the main asset to the provided bounding box.",
@@ -20,7 +20,8 @@
         "license": "Apache-2.0",
         "applicableCollections": [
             "sentinel2_ard",
-            "sentinel1_ard"
+            "sentinel1_ard",
+            "sentinel-2-c1-l2a"
         ],
         "contacts": [
             {

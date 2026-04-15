@@ -7,7 +7,7 @@
     ],
     "properties": {
         "created": "2026-01-01T00:00:00Z",
-        "updated": "2026-03-13T00:00:00Z",
+        "updated": "2026-03-15T00:00:00Z",
         "type": "workflow",
         "title": "NDVI Calculation",
         "description": "This workflow calculates the Normalized Difference Vegetation Index (NDVI) of the selected assets. NDVI is a widely used vegetation index that measures the difference between near-infrared (which vegetation strongly reflects) and red light (which vegetation absorbs).",
@@ -22,7 +22,8 @@
         "language": "en",
         "license": "Apache-2.0",
         "applicableCollections": [
-            "sentinel2_ard"
+            "sentinel2_ard",
+            "sentinel-2-c1-l2a"
         ],
         "contacts": [
             {
@@ -86,7 +87,7 @@
         },
         {
             "rel": "application",
-            "href": "https://raw.githubusercontent.com/geodowd/ndvi/refs/heads/prod/ndvi.cwl",
+            "href": "https://raw.githubusercontent.com/geodowd/ndvi/refs/heads/main/ndvi.cwl",
             "type": "application/cwl+yaml",
             "title": "CWL Application Package"
         },
