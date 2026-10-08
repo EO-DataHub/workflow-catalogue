@@ -1,0 +1,85 @@
+{
+    "id": "pin_set_starter",
+    "type": "Feature",
+    "geometry": null,
+    "conformsTo": [
+        "http://www.opengis.net/doc/IS/ogcapi-records-1/1.0"
+    ],
+    "properties": {
+        "created": "2026-10-08T00:00:00Z",
+        "updated": "2026-10-08T00:00:00Z",
+        "type": "notebook",
+        "title": "Pin Set Starter",
+        "description": "Loads a saved set (pin set) from your workspace with pyeodh and shows its items: a table, a summary by collection, and a footprint map. Needs an EODH API token.",
+        "keywords": [
+            "Pin set",
+            "Saved set",
+            "pyeodh",
+            "STAC"
+        ],
+        "language": "en",
+        "license": "Apache-2.0",
+        "applicableCollections": [
+            "sentinel2_ard",
+            "sentinel-2-c1-l2a"
+        ],
+        "contacts": [
+            {
+                "name": "Dave Dowding",
+                "organization": "Sparkgeo",
+                "roles": [
+                    "author"
+                ]
+            }
+        ],
+        "inputParameters": {
+            "PIN_SET_ID": {
+                "label": "Pin Set ID",
+                "type": "string",
+                "description": "ID of the saved set to load"
+            },
+            "PIN_SET_NAME": {
+                "label": "Pin Set Name",
+                "type": "string",
+                "description": "Name of the saved set, used as the notebook title"
+            },
+            "WORKSPACE_NAME": {
+                "label": "Workspace Name",
+                "type": "string",
+                "description": "Workspace the saved set belongs to"
+            },
+            "EODH_BASE_URL": {
+                "label": "EODH Base URL",
+                "type": "string",
+                "description": "Base URL of the EODH platform that holds the saved set"
+            }
+        },
+        "application:type": "jupyter-notebook",
+        "application:container": false,
+        "application:language": "Python",
+        "formats": [
+            {
+                "name": "Jupyter Notebook",
+                "mediaType": "application/x-ipynb+json"
+            }
+        ]
+    },
+    "links": [
+        {
+            "rel": "self",
+            "href": "https://test.eodatahub.org.uk/api/wf-catalogue/v1.0/collections/eodh-workflows-notebooks/items/pin_set_starter",
+            "type": "application/geo+json",
+            "title": "This record"
+        },
+        {
+            "rel": "application",
+            "href": "https://raw.githubusercontent.com/geodowd/example-eodh-notebooks/refs/heads/main/pin_set_starter.ipynb",
+            "type": "application/x-ipynb+json",
+            "title": "Jupyter Notebook",
+            "jupyter:kernel": {
+                "name": "python3",
+                "pythonVersion": 3.11
+            }
+        }
+    ]
+}
