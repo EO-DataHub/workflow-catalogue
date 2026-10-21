@@ -6,7 +6,7 @@ from enum import Enum
 from pathlib import Path  # noqa: TC003
 from typing import Any
 
-from pydantic import AnyUrl, BaseModel, Field
+from pydantic import AnyUrl, BaseModel, ConfigDict, Field
 
 
 class Rel(Enum):
@@ -53,8 +53,22 @@ class ParameterType(Enum):
     boolean = "boolean"
 
 
+class HubType(Enum):
+    """What the Hub fills an input with at launch."""
+
+    stac_item = "stac-item"
+    pin_set = "pin-set"
+    stac_search = "stac-search"
+    aoi = "aoi"
+    bbox = "bbox"
+    date = "date"
+    date_range = "date-range"
+
+
 class InputParameter(BaseModel):
     """Input parameter definition."""
+
+    model_config = ConfigDict(extra="forbid")
 
     label: str = Field(..., description="Human-readable parameter label", min_length=1)
     type: ParameterType = Field(..., description="Parameter data type")
@@ -66,6 +80,16 @@ class InputParameter(BaseModel):
     max: float | None = Field(None, description="Maximum value for numeric parameters")
     pattern: str | None = Field(None, description="Regex pattern for text parameters")
     enum: list[str | int | float] | None = Field(None, description="Allowed values for the parameter")
+    hub_type: HubType | None = Field(
+        None,
+        alias="hubType",
+        description="What the Hub fills this input with at launch. Unset means the user enters the value",
+    )
+    variable_ref: str | None = Field(
+        None,
+        alias="variableRef",
+        description="Deprecated: platform variable name used before hubType. Kept until clients read hubType",
+    )
 
 
 class OutputFormat(BaseModel):

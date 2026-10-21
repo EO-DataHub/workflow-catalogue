@@ -1,12 +1,14 @@
 from __future__ import annotations
 
 import json
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, cast
 
 import pytest
+from pydantic import ValidationError
 
 from workflow_catalogue.consts import directories
 from workflow_catalogue.schemas.catalogue import EodhCatalogue
+from workflow_catalogue.schemas.common import HubType
 from workflow_catalogue.schemas.notebook import EodhNotebookRecord
 from workflow_catalogue.schemas.workflow import EodhWorkflowRecord
 
@@ -72,3 +74,36 @@ def test_catalogue_notebook(notebook_definition_path: Path) -> None:
 )
 def test_catalogue_catalog_json(catalog_path: Path) -> None:
     EodhCatalogue.model_validate(json.loads(catalog_path.read_text(encoding="utf-8")))
+
+
+# Input parameter checks
+
+
+def _notebook_with_input(param: dict[str, object]) -> dict[str, object]:
+    data = json.loads(
+        (CATALOGUE_DIR / "eodh-workflows-notebooks/notebooks/ndvi_notebook.json").read_text(encoding="utf-8")
+    )
+    data["properties"]["inputParameters"] = {"PIN_SET_ID": param}
+    return cast("dict[str, object]", data)
+
+
+def test_input_parameter_accepts_hub_type() -> None:
+    record = EodhNotebookRecord.model_validate(
+        _notebook_with_input({"label": "Saved set", "type": "text", "hubType": "pin-set", "description": "Set id"}),
+    )
+    assert record.properties.input_parameters is not None
+    assert record.properties.input_parameters["PIN_SET_ID"].hub_type == HubType.pin_set
+
+
+def test_input_parameter_rejects_unknown_hub_type() -> None:
+    with pytest.raises(ValidationError, match="hubType"):
+        EodhNotebookRecord.model_validate(
+            _notebook_with_input({"label": "Items", "type": "text", "hubType": "stac-items", "description": "Items"}),
+        )
+
+
+def test_input_parameter_rejects_unknown_field() -> None:
+    with pytest.raises(ValidationError, match="hubtype"):
+        EodhNotebookRecord.model_validate(
+            _notebook_with_input({"label": "Saved set", "type": "text", "hubtype": "pin-set", "description": "Set id"}),
+        )
