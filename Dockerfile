@@ -1,4 +1,4 @@
-FROM python:3.13-slim-bullseye
+FROM python:3.13-slim-trixie
 
 # Setup environment to match variables set by repo2docker as much as possible
 # Tell apt-get to not block installs by asking for interactive human input
