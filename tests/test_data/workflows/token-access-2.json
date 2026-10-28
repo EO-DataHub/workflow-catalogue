@@ -41,6 +41,7 @@
         "inputParameters": {
             "workspace": {
                 "type": "text",
+                "cwlType": "string",
                 "label": "Workspace",
                 "description": "The workspace identifier to test access for"
             }

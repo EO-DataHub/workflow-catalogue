@@ -45,11 +45,13 @@
             "input_cog": {
                 "label": "COG to calculate NDVI from",
                 "type": "raster",
+                "cwlType": "string",
                 "description": "Cloud Optimized GeoTIFF containing the spectral bands needed for NDVI calculation"
             },
             "bbox": {
                 "label": "Bounding Box",
                 "type": "bbox",
+                "cwlType": "string",
                 "description": "Geographic area of interest for the NDVI calculation"
             }
         },
