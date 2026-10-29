@@ -124,7 +124,7 @@ class InputParameter(BaseModel):
     @model_validator(mode="after")
     def check_cwl_type(self) -> Self:
         """Check that staging and hubType fit cwlType."""
-        if self.staging is not None and self.cwl_type != "Directory":
+        if self.staging is not None and self.cwl_type is not None and self.cwl_type != "Directory":
             msg = f"staging needs cwlType 'Directory', got {self.cwl_type!r}"
             raise ValueError(msg)
         if self.hub_type is None or self.cwl_type is None:
