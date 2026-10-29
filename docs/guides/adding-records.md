@@ -112,18 +112,22 @@ https://eodatahub.org.uk/api/catalogue/stac/catalogs/public/catalogs/ceda-stac-c
 
 The `inputParameters` field maps parameter names to objects with:
 
-| Field         | Required       | Description                                                                           |
-| ------------- | -------------- | ------------------------------------------------------------------------------------- |
-| `label`       | Yes            | Display label for the parameter                                                       |
-| `type`        | Yes            | Parameter type: `"text"`, `"date"`, `"bbox"`, `"raster"`, `"number"`                  |
-| `description` | Yes            | What the parameter is for                                                             |
-| `default`     | No             | Default value                                                                         |
-| `placeholder` | No             | Placeholder text for UI input fields                                                  |
-| `required`    | No             | Set to `false` if the user can leave the input empty                                  |
-| `hubType`     | No             | What the Hub fills the input with at launch. Leave it out if the user types the value |
-| `cwlType`     | Workflows only | The CWL type of the workflow input, without the optional marker `?`                   |
-| `staging`     | No             | How much stage-in fetches for a `Directory` input: `"assets"` or `"metadata"`         |
-| `variableRef` | No             | Deprecated. The old platform variable name. Use `hubType` for new records             |
+| Field         | Required       | Description                                                                                                                                                           |
+| ------------- | -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `label`       | Yes            | Display label for the parameter                                                                                                                                       |
+| `type`        | Yes            | Parameter type: `"raster"`, `"vector"`, `"collection"`, `"catalog"`, `"netcdf"`, `"geotiff"`, `"wms"`, `"wfs"`, `"bbox"`, `"date"`, `"text"`, `"number"`, `"boolean"` |
+| `description` | Yes            | What the parameter is for                                                                                                                                             |
+| `default`     | No             | Default value                                                                                                                                                         |
+| `placeholder` | No             | Placeholder text for UI input fields                                                                                                                                  |
+| `required`    | No             | Set to `false` if the user can leave the input empty                                                                                                                  |
+| `min`         | No             | Smallest allowed value, for a number input                                                                                                                            |
+| `max`         | No             | Largest allowed value, for a number input                                                                                                                             |
+| `pattern`     | No             | Regular expression that a text value must match                                                                                                                       |
+| `enum`        | No             | List of allowed values                                                                                                                                                |
+| `hubType`     | No             | What the Hub fills the input with at launch. Leave it out if the user types the value                                                                                 |
+| `cwlType`     | Workflows only | The CWL type of the workflow input, without the optional marker `?`                                                                                                   |
+| `staging`     | No             | How much stage-in fetches for a `Directory` input: `"assets"` or `"metadata"`                                                                                         |
+| `variableRef` | No             | Deprecated. The old platform variable name. Use `hubType` for new records                                                                                             |
 
 Each input object accepts only the fields in this table. A record with any other field fails validation.
 
@@ -150,13 +154,15 @@ Every input in a workflow record needs a `cwlType`. Copy the type from the input
 
 Notebook inputs must not have `cwlType` or `staging`.
 
-If an input is optional in the CWL (its type ends with `?`), set `"required": false` on the input. If you leave `required` out, CI fails the record.
+If an input is optional in the CWL, set `"required": false` on the input. If you leave `required` out, CI fails the record. An input is optional when its type ends with `?`, or when its type is a list of `"null"` and one other type. For example, `["null", "string"]` is optional, and its `cwlType` is `"string"`.
 
 CI fetches the CWL file and compares it with `inputParameters`. The record fails if:
 
 - an `inputParameters` key is not an input of the CWL `Workflow`
-- a `cwlType` is not the same as the CWL input type, after the `?` is removed
+- a `cwlType` is not the same as the CWL input type, after the optional marker (`?` or `"null"`) is removed
 - an input is optional in the CWL and `required` is not `false`
+
+If CI cannot fetch the CWL file, it prints a warning and does not compare the inputs. The record does not fail. If the CWL link is a local path and not a URL, CI skips the link and does not compare the inputs.
 
 `make validate-catalogue` does not do this check. To run it locally, use:
 
