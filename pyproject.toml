@@ -186,6 +186,7 @@ combine-as-imports = true
     "D1",  # Ignore undocumented public members in tests
 ]
 "src/workflow_catalogue/consts/logging.py" = ["A005"]
+"tests/unit/scripts/test_validate_ci.py" = ["S404"]  # The tests run validate_ci.py as a subprocess
 "src/workflow_catalogue/utils/gpu.py" = ["S605"]
 "src/workflow_catalogue/utils/logging.py" = ["A005"]
 

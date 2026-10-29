@@ -98,9 +98,12 @@ def test_input_parameter_accepts_hub_type() -> None:
 def test_input_parameter_rejects_unknown_hub_type() -> None:
     with pytest.raises(ValidationError, match="hubType"):
         EodhNotebookRecord.model_validate(
-            _notebook_with_input(
-                {"label": "Items", "type": "text", "hubType": "stac-collection", "description": "Items"}
-            ),
+            _notebook_with_input({
+                "label": "Items",
+                "type": "text",
+                "hubType": "stac-collection",
+                "description": "Items",
+            }),
         )
 
 
@@ -189,18 +192,26 @@ def test_workflow_input_without_hub_type_requires_cwl_type() -> None:
 def test_notebook_input_rejects_cwl_type() -> None:
     with pytest.raises(ValidationError, match="cwlType"):
         EodhNotebookRecord.model_validate(
-            _notebook_with_input(
-                {"label": "Item", "type": "text", "hubType": "stac-item", "cwlType": "string", "description": "Item"}
-            ),
+            _notebook_with_input({
+                "label": "Item",
+                "type": "text",
+                "hubType": "stac-item",
+                "cwlType": "string",
+                "description": "Item",
+            }),
         )
 
 
 def test_notebook_input_rejects_staging() -> None:
     with pytest.raises(ValidationError, match="staging"):
         EodhNotebookRecord.model_validate(
-            _notebook_with_input(
-                {"label": "Item", "type": "text", "hubType": "stac-item", "staging": "assets", "description": "Item"}
-            ),
+            _notebook_with_input({
+                "label": "Item",
+                "type": "text",
+                "hubType": "stac-item",
+                "staging": "assets",
+                "description": "Item",
+            }),
         )
 
 

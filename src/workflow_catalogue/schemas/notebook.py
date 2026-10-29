@@ -10,7 +10,7 @@ from workflow_catalogue.schemas.base_record import BaseEodhCatalogueRecord, Prop
 from workflow_catalogue.schemas.notebook_extension import NotebookExtension, NotebookProperties
 
 
-class EodhNotebookProperties(Properties, NotebookProperties):
+class EodhNotebookProperties(Properties, NotebookProperties):  # type: ignore[misc]  # both define `type`; the MRO keeps the base record's
     """Base record properties plus the notebook extension properties."""
 
 
@@ -20,7 +20,7 @@ class EodhNotebookRecord(BaseEodhCatalogueRecord, NotebookExtension):
     # Without this, the base record's `properties` wins and the extension fields are never validated.
     properties: EodhNotebookProperties
 
-    @model_validator(mode="after")
+    @model_validator(mode="after")  # type: ignore[misc]  # mypy runs without pydantic installed
     def check_inputs_have_no_cwl_fields(self) -> Self:
         """Check that no input has cwlType or staging, which only apply to workflows."""
         for name, param in (self.properties.input_parameters or {}).items():

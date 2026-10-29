@@ -68,9 +68,12 @@ def _write_record(tmp_path: Path, input_parameters: dict[str, Any]) -> Path:
     data["links"] = [
         link for link in data["links"] if not (link.get("rel") == "application" and "cwl" in link.get("type", ""))
     ]
-    data["links"].append(
-        {"rel": "application", "href": CWL_URL, "type": "application/cwl+yaml", "title": "CWL Application Package"}
-    )
+    data["links"].append({
+        "rel": "application",
+        "href": CWL_URL,
+        "type": "application/cwl+yaml",
+        "title": "CWL Application Package",
+    })
     data["properties"]["inputParameters"] = input_parameters
     path = tmp_path / f"{data['id']}.json"
     path.write_text(json.dumps(data), encoding="utf-8")

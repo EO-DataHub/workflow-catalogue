@@ -121,7 +121,7 @@ class InputParameter(BaseModel):
         description="How much stage-in fetches for a Directory input: the item with its assets, or the metadata only",
     )
 
-    @model_validator(mode="after")
+    @model_validator(mode="after")  # type: ignore[misc]  # mypy runs without pydantic installed
     def check_cwl_type(self) -> Self:
         """Check that staging and hubType fit cwlType."""
         if self.staging is not None and self.cwl_type is not None and self.cwl_type != "Directory":
