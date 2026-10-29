@@ -35,22 +35,23 @@
         "inputParameters": {
             "PIN_SET_ID": {
                 "label": "Pin Set ID",
-                "type": "string",
-                "description": "ID of the saved set to load"
+                "type": "text",
+                "description": "ID of the saved set to load",
+                "hubType": "pin-set"
             },
             "PIN_SET_NAME": {
                 "label": "Pin Set Name",
-                "type": "string",
+                "type": "text",
                 "description": "Name of the saved set, used as the notebook title"
             },
             "WORKSPACE_NAME": {
                 "label": "Workspace Name",
-                "type": "string",
+                "type": "text",
                 "description": "Workspace the saved set belongs to"
             },
             "EODH_BASE_URL": {
                 "label": "EODH Base URL",
-                "type": "string",
+                "type": "text",
                 "description": "Base URL of the EODH platform that holds the saved set"
             }
         },

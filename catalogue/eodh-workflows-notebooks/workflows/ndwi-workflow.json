@@ -46,14 +46,20 @@
             "stac_item": {
                 "label": "Link to STAC Item",
                 "type": "raster",
+                "hubType": "stac-item",
                 "description": "Link to STAC Item to calculate NDWI from",
-                "variableRef": "STAC_ITEM_LINK"
+                "variableRef": "STAC_ITEM_LINK",
+                "cwlType": "Directory",
+                "staging": "assets"
             },
             "bbox": {
                 "label": "Bounding Box",
                 "type": "bbox",
-                "description": "Geographic area of interest for the NDWI calculation",
-                "variableRef": "AOI"
+                "hubType": "bbox",
+                "description": "Geographic area of interest for the NDWI calculation, as xmin,ymin,xmax,ymax in EPSG:4326",
+                "variableRef": "AOI",
+                "cwlType": "string",
+                "required": false
             }
         },
         "application:type": "cwl",
