@@ -69,6 +69,24 @@
         },
         {
             "rel": "item",
+            "href": "./workflows/eodh-evi.json",
+            "type": "application/geo+json",
+            "title": "EVI"
+        },
+        {
+            "rel": "item",
+            "href": "./workflows/eodh-savi.json",
+            "type": "application/geo+json",
+            "title": "SAVI"
+        },
+        {
+            "rel": "item",
+            "href": "./workflows/eodh-nbr.json",
+            "type": "application/geo+json",
+            "title": "NBR"
+        },
+        {
+            "rel": "item",
             "href": "./workflows/bbox-workflow.json",
             "type": "application/geo+json",
             "title": "BBOX Workflow"
