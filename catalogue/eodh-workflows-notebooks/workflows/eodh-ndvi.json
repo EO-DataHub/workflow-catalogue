@@ -49,8 +49,7 @@
                 "hubType": "stac-item",
                 "description": "The Sentinel-2 L2A or Sentinel-2 ARD item to calculate NDVI from",
                 "required": true,
-                "cwlType": "Directory",
-                "staging": "assets"
+                "cwlType": "string"
             },
             "aoi": {
                 "label": "Area of interest",
@@ -86,7 +85,7 @@
         },
         {
             "rel": "application",
-            "href": "https://raw.githubusercontent.com/EO-DataHub/eodh-index-workflows/v0.1.0/cwl/eodh-ndvi.cwl",
+            "href": "https://raw.githubusercontent.com/EO-DataHub/eodh-index-workflows/v0.2.0/cwl/eodh-ndvi.cwl",
             "type": "application/cwl+yaml",
             "title": "CWL Application Package"
         },
