@@ -63,9 +63,9 @@
         },
         {
             "rel": "item",
-            "href": "./workflows/ndvi-workflow.json",
+            "href": "./workflows/eodh-ndvi.json",
             "type": "application/geo+json",
-            "title": "NDVI Calculation Workflow"
+            "title": "NDVI"
         },
         {
             "rel": "item",
