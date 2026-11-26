@@ -34,17 +34,19 @@
         "inputParameters": {
             "STAC_COLLECTION_NAME": {
                 "label": "STAC Collection Name",
-                "type": "string",
+                "type": "text",
                 "description": "STAC Collection Name"
             },
             "STAC_ITEM_LINK": {
                 "label": "STAC Item Link",
-                "type": "string",
+                "type": "text",
+                "hubType": "stac-item",
                 "description": "STAC Item Link"
             },
             "AOI": {
                 "label": "AOI",
-                "type": "string",
+                "type": "text",
+                "hubType": "aoi",
                 "description": "AOI in GeoJSON format"
             }
         },

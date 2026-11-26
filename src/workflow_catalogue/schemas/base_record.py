@@ -41,7 +41,7 @@ class Properties(BaseModel):
     applicable_collections: list[str] = Field(
         ...,
         alias="applicableCollections",
-        description="Array of STAC collection names that this workflow/notebook can process",
+        description="Array of STAC collection identifiers that this workflow/notebook can process",
     )
     contacts: list[Contact] | None = Field(
         default_factory=list,

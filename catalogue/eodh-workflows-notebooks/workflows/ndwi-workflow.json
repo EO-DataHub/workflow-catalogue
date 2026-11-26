@@ -7,7 +7,7 @@
     ],
     "properties": {
         "created": "2026-01-01T00:00:00Z",
-        "updated": "2026-03-06T00:00:00Z",
+        "updated": "2026-03-15T00:00:00Z",
         "type": "workflow",
         "title": "NDWI Calculation",
         "description": "This workflow calculates the Normalized Difference Water Index (NDWI) of the selected assets. NDWI is a widely used water index that measures the difference between near-infrared (which water strongly reflects) and red light (which water absorbs).",
@@ -46,14 +46,20 @@
             "stac_item": {
                 "label": "Link to STAC Item",
                 "type": "raster",
+                "hubType": "stac-item",
                 "description": "Link to STAC Item to calculate NDWI from",
-                "variableRef": "STAC_ITEM_LINK"
+                "variableRef": "STAC_ITEM_LINK",
+                "cwlType": "Directory",
+                "staging": "assets"
             },
             "bbox": {
                 "label": "Bounding Box",
                 "type": "bbox",
-                "description": "Geographic area of interest for the NDWI calculation",
-                "variableRef": "AOI"
+                "hubType": "bbox",
+                "description": "Geographic area of interest for the NDWI calculation, as xmin,ymin,xmax,ymax in EPSG:4326",
+                "variableRef": "AOI",
+                "cwlType": "string",
+                "required": false
             }
         },
         "application:type": "cwl",
@@ -87,7 +93,7 @@
         },
         {
             "rel": "application",
-            "href": "https://raw.githubusercontent.com/geodowd/ndvi/refs/heads/ndwi/ndwi.cwl",
+            "href": "https://raw.githubusercontent.com/geodowd/ndvi/refs/heads/main/ndwi.cwl",
             "type": "application/cwl+yaml",
             "title": "CWL Application Package"
         },

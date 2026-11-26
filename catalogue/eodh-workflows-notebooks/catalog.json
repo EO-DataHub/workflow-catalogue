@@ -93,6 +93,12 @@
         },
         {
             "rel": "item",
+            "href": "./workflows/lulc-change-workflow.json",
+            "type": "application/geo+json",
+            "title": "Land Use / Land Cover Change Workflow"
+        },
+        {
+            "rel": "item",
             "href": "./notebooks/ndvi_calculation.json",
             "type": "application/geo+json",
             "title": "NDVI Calculation Notebook"

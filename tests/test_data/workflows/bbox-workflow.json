@@ -22,7 +22,7 @@
         "language": "en",
         "license": "Apache-2.0",
         "applicableCollections": [
-            "sentinel2_ard"
+            "https://eodatahub.org.uk/api/catalogue/stac/catalogs/public/catalogs/ceda-stac-catalogue/collections/sentinel2_ard"
         ],
         "contacts": [
             {
@@ -45,11 +45,13 @@
             "input_cog": {
                 "label": "COG to clip from",
                 "type": "raster",
+                "cwlType": "string",
                 "description": "Cloud Optimized GeoTIFF to be clipped"
             },
             "bbox": {
                 "label": "Bounding Box",
                 "type": "bbox",
+                "cwlType": "string",
                 "description": "Geographic bounding box defining the area to extract"
             }
         },

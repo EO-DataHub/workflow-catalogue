@@ -40,16 +40,19 @@
         "inputParameters": {
             "a": {
                 "type": "text",
+                "cwlType": "string",
                 "label": "Text input",
                 "description": "A text input parameter"
             },
             "b": {
                 "type": "text",
+                "cwlType": "string",
                 "label": "Complex input",
                 "description": "A complex input parameter"
             },
             "c": {
                 "type": "text",
+                "cwlType": "string",
                 "label": "Bbox input",
                 "description": "A bounding box input parameter"
             }

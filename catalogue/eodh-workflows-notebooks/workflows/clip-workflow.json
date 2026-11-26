@@ -7,7 +7,7 @@
     ],
     "properties": {
         "created": "2026-03-01T00:00:00Z",
-        "updated": "2026-03-12T00:00:00Z",
+        "updated": "2026-03-15T00:00:00Z",
         "type": "workflow",
         "title": "Clip Asset",
         "description": "This workflow clips the main asset to the provided bounding box.",
@@ -44,14 +44,20 @@
             "stac_item": {
                 "label": "Link to STAC Item",
                 "type": "raster",
+                "hubType": "stac-item",
                 "description": "Link to STAC Item to calculate Clip from",
-                "variableRef": "STAC_ITEM_LINK"
+                "variableRef": "STAC_ITEM_LINK",
+                "cwlType": "Directory",
+                "staging": "assets"
             },
             "bbox": {
                 "label": "Bounding Box",
                 "type": "bbox",
-                "description": "Geographic area of interest for the Clip calculation",
-                "variableRef": "AOI"
+                "hubType": "bbox",
+                "description": "Geographic area of interest for the Clip calculation, as xmin,ymin,xmax,ymax in EPSG:4326",
+                "variableRef": "AOI",
+                "cwlType": "string",
+                "required": false
             }
         },
         "application:type": "cwl",
@@ -85,7 +91,7 @@
         },
         {
             "rel": "application",
-            "href": "https://raw.githubusercontent.com/geodowd/ndvi/refs/heads/clip/clip.cwl",
+            "href": "https://raw.githubusercontent.com/geodowd/ndvi/refs/heads/main/clip.cwl",
             "type": "application/cwl+yaml",
             "title": "CWL Application Package"
         },

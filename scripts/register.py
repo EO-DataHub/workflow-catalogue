@@ -23,16 +23,55 @@ Environment variables:
 from __future__ import annotations
 
 import argparse
+import base64
 import json
 import os
 import sys
 from pathlib import Path
 from urllib.parse import urljoin
+from typing import Any
 
 import requests
 
 TIMEOUT = 30
-OGC_PROCESSES_PATH = "ogc-api/processes"
+OGC_PROCESSES_PATH = "processes"
+
+def truncate(text: str, max_len: int = 600) -> str:
+    if len(text) <= max_len:
+        return text
+    return text[: max_len - 3] + "..."
+
+
+def decode_jwt_payload(token: str) -> dict[str, Any] | None:
+    """Decode a JWT payload for debugging purposes.
+
+    Note: this does not validate signatures; it's only to inspect token claims.
+
+    """
+    try:
+        parts = token.split(".")
+        if len(parts) < 2:
+            return None
+        payload_b64 = parts[1]
+        # Base64url padding
+        payload_b64 += "=" * (-len(payload_b64) % 4)
+        raw = base64.urlsafe_b64decode(payload_b64.encode("utf-8"))
+        result: dict[str, Any] = json.loads(raw)
+        return result
+    except Exception:
+        return None
+
+
+def log_workspace_token_claims(label: str, token: str) -> None:
+    payload = decode_jwt_payload(token)
+    if not payload:
+        print(f"  DEBUG: {label} token is not a JWT (no decodable payload)")
+        return
+
+    # Keep this small and non-secret; focus on the claims relevant to STS trust policy.
+    claim_keys = {"workspaces", "principal_tags", "principalTags", "aud", "iss", "sub", "azp"}
+    preview = {k: payload[k] for k in claim_keys if k in payload}
+    print(f"  DEBUG: {label} token claim preview: {json.dumps(preview, default=str)}")
 
 
 def get_collection_id(file_path: Path) -> str | None:
@@ -49,22 +88,27 @@ def get_keycloak_token() -> str:
     """Get Keycloak access token via password grant."""
     base_url = os.environ["EODH__BASE_URL"]
     realm = os.environ["EODH__REALM"]
+    client_id = os.environ["EODH__CLIENT_ID"]
+    username = os.environ["EODH__USERNAME"]
     token_url = urljoin(base_url, f"/keycloak/realms/{realm}/protocol/openid-connect/token")
 
+    print(f"  DEBUG: keycloak token URL: {token_url}")
+    print(f"  DEBUG: keycloak client_id='{client_id}' username='{username}'")
     resp = requests.post(
         token_url,
         headers={"Content-Type": "application/x-www-form-urlencoded"},
         data={
-            "client_id": os.environ["EODH__CLIENT_ID"],
-            "username": os.environ["EODH__USERNAME"],
+            "client_id": client_id,
+            "username": username,
             "password": os.environ["EODH__PASSWORD"],
             "grant_type": "password",
             "scope": "openid",
         },
         timeout=TIMEOUT,
     )
+
     resp.raise_for_status()
-    return resp.json()["access_token"]  # type: ignore[no-any-return]
+    return str(resp.json()["access_token"])
 
 
 def get_workspace_token(keycloak_token: str, workspace: str) -> str:
@@ -73,6 +117,7 @@ def get_workspace_token(keycloak_token: str, workspace: str) -> str:
     ws_path = os.environ["EODH__WORKSPACE_SERVICES_ENDPOINT_PATH"]
     sessions_url = urljoin(base_url, f"{ws_path}/{workspace}/me/sessions")
 
+    print(f"  DEBUG: workspace session URL: {sessions_url}")
     resp = requests.post(
         sessions_url,
         headers={
@@ -82,7 +127,7 @@ def get_workspace_token(keycloak_token: str, workspace: str) -> str:
         timeout=TIMEOUT,
     )
     resp.raise_for_status()
-    return resp.json()["access"]  # type: ignore[no-any-return]
+    return str(resp.json()["access"])
 
 
 def ensure_collection(collection_id: str, file_path: Path, token: str) -> bool:
@@ -194,6 +239,10 @@ def register_ades_process(file_path: Path, workspace_token: str) -> bool:
     ades_url = urljoin(base_url, ades_path).rstrip("/")
     processes_url = f"{ades_url}/{workspace}/{OGC_PROCESSES_PATH}"
 
+    print(f"  DEBUG: ADES base_url={base_url} ades_path={ades_path} ades_url={ades_url}")
+    print(f"  DEBUG: ADES workspace={workspace}")
+    print(f"  DEBUG: ADES processes_url={processes_url}")
+
     headers = {
         "Authorization": f"Bearer {workspace_token}",
         "Content-Type": "application/cwl+yaml",
@@ -215,9 +264,13 @@ def register_ades_process(file_path: Path, workspace_token: str) -> bool:
             ok = False
             continue
 
-        del_resp = requests.delete(f"{processes_url}/{record_id}", headers=headers, timeout=TIMEOUT)
+        del_url = f"{processes_url}/{record_id}"
+        print(f"  DEBUG: ADES unregister URL: {del_url}")
+        del_resp = requests.delete(del_url, headers=headers, timeout=TIMEOUT)
         if del_resp.status_code not in (200, 204, 403, 404):
             print(f"  WARN: Unregister returned {del_resp.status_code} for '{record_id}'")
+            if del_resp.text:
+                print(f"  DEBUG: ADES unregister response body: {truncate(del_resp.text)}")
 
         reg_resp = requests.post(processes_url, headers=headers, data=cwl_resp.content, timeout=TIMEOUT)
 
@@ -242,6 +295,10 @@ def publish_workflow(record_id: str, workspace_token: str) -> bool:
         "Accept": "application/json",
     }
 
+    print(f"  DEBUG: publish endpoints for workspace='{workspace}'")
+    print(f"  DEBUG: data-loader URL: {base_url}/api/workspaces/{workspace}/data-loader")
+    print(f"  DEBUG: harvest URL: {base_url}/workspaces/{workspace}/harvest")
+
     policy = json.dumps({"workflows": {record_id: {"access": "public"}}})
     policy_resp = requests.post(
         f"{base_url}/api/workspaces/{workspace}/data-loader",
@@ -251,7 +308,10 @@ def publish_workflow(record_id: str, workspace_token: str) -> bool:
     )
 
     if not policy_resp.ok:
-        print(f"  WARN: Access policy upload failed for '{record_id}': {policy_resp.status_code} {policy_resp.text}")
+        print(
+            f"  WARN: Access policy upload failed for '{record_id}': "
+            f"{policy_resp.status_code} {truncate(policy_resp.text)}"
+        )
         return False
 
     harvest_resp = requests.post(
@@ -261,7 +321,10 @@ def publish_workflow(record_id: str, workspace_token: str) -> bool:
     )
 
     if not harvest_resp.ok:
-        print(f"  WARN: Harvest trigger failed for '{record_id}': {harvest_resp.status_code} {harvest_resp.text}")
+        print(
+            f"  WARN: Harvest trigger failed for '{record_id}': "
+            f"{harvest_resp.status_code} {truncate(harvest_resp.text)}"
+        )
         return False
 
     print(f"  OK: Published '{record_id}'")
@@ -300,6 +363,8 @@ def main() -> None:
             try:
                 workspace_token = get_workspace_token(keycloak_token, workspace)
                 print("  OK: Workspace token obtained")
+                # Print relevant non-secret claims to debug downstream AWS STS issues.
+                log_workspace_token_claims("workspace-session", workspace_token)
             except Exception as e:
                 print(f"  WARN: Could not get workspace token: {e}")
                 print("  ADES registration and publishing will be skipped.")
