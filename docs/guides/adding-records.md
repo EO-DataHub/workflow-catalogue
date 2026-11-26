@@ -144,7 +144,9 @@ Each input object accepts only the fields in this table. A record with any other
 | `aoi`         | An area of interest, as a GeoJSON string              | `string`                  |
 | `bbox`        | A bounding box, as `xmin,ymin,xmax,ymax` in EPSG:4326 | `string`                  |
 | `date`        | One date                                              | `string`                  |
-| `date-range`  | A start date and an end date                          | `string[]`                |
+| `date-range`  | A start date and an end date                          | `string` or `string[]`    |
+
+The Data Finder run panel sends a `date-range` input as one `start/end` string, so a workflow that it runs must use `string`.
 
 If the `hubType` and `cwlType` do not fit this table, the record fails validation. A `stac-search` input cannot be a `Directory`. To stage the results of a search, use `stac-items`.
 

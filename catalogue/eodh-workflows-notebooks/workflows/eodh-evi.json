@@ -85,7 +85,7 @@
         },
         {
             "rel": "application",
-            "href": "https://raw.githubusercontent.com/EO-DataHub/eodh-index-workflows/v0.3.0/cwl/eodh-evi.cwl",
+            "href": "https://raw.githubusercontent.com/EO-DataHub/eodh-index-workflows/v0.4.0/cwl/eodh-evi.cwl",
             "type": "application/cwl+yaml",
             "title": "CWL Application Package"
         },
