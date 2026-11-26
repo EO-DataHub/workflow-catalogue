@@ -135,7 +135,7 @@ curl -H "Authorization: Bearer $TOKEN" "{API_URL}/api/v1.0/collections/eodh-work
 ### Get a specific record
 
 ```shell
-curl -H "Authorization: Bearer $TOKEN" {API_URL}/api/v1.0/collections/eodh-workflows-notebooks/items/ndvi-workflow
+curl -H "Authorization: Bearer $TOKEN" {API_URL}/api/v1.0/collections/eodh-workflows-notebooks/items/eodh-ndvi
 ```
 
 Expected: `200 OK` with the full record. Verify that the response fields match the JSON file that was merged (title, description, keywords, links, inputParameters, etc.).
@@ -198,7 +198,7 @@ After the initial deployment, these records should exist:
 
 | ID               | Title                                                       |
 | ---------------- | ----------------------------------------------------------- |
-| `ndvi-workflow`  | NDVI Calculation                                            |
+| `eodh-ndvi`      | NDVI                                                        |
 | `bbox-workflow`  | BBox Spatial Filter                                         |
 | `lst-min-max`    | Land Surface Temperature (LST) - Monthly (avg), Day & Night |
 | `echo`           | Echo                                                        |

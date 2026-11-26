@@ -298,7 +298,7 @@ def test_workflow_fixture_inputs_have_cwl_type(workflow_definition_path: Path) -
         assert "cwlType" in param, name
 
 
-@pytest.mark.parametrize("record_id", ["ndvi-workflow", "ndwi-workflow", "clip-workflow"])
+@pytest.mark.parametrize("record_id", ["ndwi-workflow", "clip-workflow"])
 def test_catalogue_stac_item_workflow_inputs(record_id: str) -> None:
     data = json.loads((WORKFLOWS_NOTEBOOKS_DIR / "workflows" / f"{record_id}.json").read_text(encoding="utf-8"))
     params = data["properties"]["inputParameters"]

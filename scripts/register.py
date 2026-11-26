@@ -1,9 +1,9 @@
 """CD script: register catalogue records in wf-catalogue-service and publish to ADES.
 
 Usage:
-    python scripts/register.py --files catalogue/eodh-workflows-notebooks/workflows/ndvi-workflow.json
+    python scripts/register.py --files catalogue/eodh-workflows-notebooks/workflows/eodh-ndvi.json
     python scripts/register.py --files catalogue/eodh-workflows-notebooks/workflows/*.json --skip-ades
-    python scripts/register.py --deleted-ids ndvi-workflow echo
+    python scripts/register.py --deleted-ids eodh-ndvi echo
 
 The collection ID is derived from the file path: ``catalogue/{collection-id}/workflows/foo.json``.
 If the collection does not exist in the API, it is created from ``catalog.json`` in that directory.

@@ -51,7 +51,7 @@ def test_collect_workflow_ids_lists_every_workflow_sorted(register: ModuleType, 
 def test_collect_workflow_ids_reads_the_real_catalogue(register: ModuleType) -> None:
     ids = register.collect_workflow_ids()
 
-    assert "ndvi-workflow" in ids
+    assert "eodh-ndvi" in ids
     assert ids == sorted(ids)
 
 
