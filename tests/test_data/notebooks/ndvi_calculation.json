@@ -21,7 +21,7 @@
         ],
         "language": "en",
         "applicableCollections": [
-            "sentinel2_ard"
+            "https://eodatahub.org.uk/api/catalogue/stac/catalogs/public/catalogs/ceda-stac-catalogue/collections/sentinel2_ard"
         ],
         "inputParameters": {
             "input_cog": {
