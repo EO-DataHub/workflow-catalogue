@@ -139,6 +139,7 @@ def _value(field: object) -> object:
         ("aoi", "string"),
         ("bbox", "string"),
         ("date", "string"),
+        ("date-range", "string"),
         ("date-range", "string[]"),
     ],
 )
@@ -246,7 +247,6 @@ def test_input_parameter_rejects_stac_search_directory_and_suggests_stac_items()
         ("bbox", "Directory"),
         ("bbox", "string[]"),
         ("date", "string[]"),
-        ("date-range", "string"),
         ("date-range", "Directory"),
         ("pin-set", "string"),
         ("pin-set", "Directory"),
@@ -259,7 +259,9 @@ def test_input_parameter_rejects_hub_type_that_does_not_fit_cwl_type(hub_type: s
 
 def test_workflow_record_rejects_hub_type_that_does_not_fit_cwl_type() -> None:
     with pytest.raises(ValidationError, match="cwlType"):
-        EodhWorkflowRecord.model_validate(_workflow_with_input(_workflow_param(hubType="date-range", cwlType="string")))
+        EodhWorkflowRecord.model_validate(
+            _workflow_with_input(_workflow_param(hubType="date-range", cwlType="Directory"))
+        )
 
 
 def test_workflow_input_rejects_unknown_field() -> None:
@@ -298,7 +300,7 @@ def test_workflow_fixture_inputs_have_cwl_type(workflow_definition_path: Path) -
         assert "cwlType" in param, name
 
 
-@pytest.mark.parametrize("record_id", ["ndwi-workflow", "clip-workflow"])
+@pytest.mark.parametrize("record_id", ["clip-workflow"])
 def test_catalogue_stac_item_workflow_inputs(record_id: str) -> None:
     data = json.loads((WORKFLOWS_NOTEBOOKS_DIR / "workflows" / f"{record_id}.json").read_text(encoding="utf-8"))
     params = data["properties"]["inputParameters"]

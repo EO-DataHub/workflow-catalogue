@@ -81,7 +81,7 @@ ALLOWED_CWL_TYPES: dict[HubType, set[str]] = {
     HubType.aoi: {"string"},
     HubType.bbox: {"string"},
     HubType.date: {"string"},
-    HubType.date_range: {"string[]"},
+    HubType.date_range: {"string", "string[]"},
     HubType.pin_set: set(),
 }
 

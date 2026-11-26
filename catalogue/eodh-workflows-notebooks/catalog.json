@@ -87,6 +87,18 @@
         },
         {
             "rel": "item",
+            "href": "./workflows/eodh-ndwi.json",
+            "type": "application/geo+json",
+            "title": "NDWI"
+        },
+        {
+            "rel": "item",
+            "href": "./workflows/eodh-dnbr.json",
+            "type": "application/geo+json",
+            "title": "dNBR"
+        },
+        {
+            "rel": "item",
             "href": "./workflows/bbox-workflow.json",
             "type": "application/geo+json",
             "title": "BBOX Workflow"

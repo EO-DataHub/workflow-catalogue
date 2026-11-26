@@ -1,19 +1,19 @@
 {
-    "id": "ndwi-workflow",
+    "id": "eodh-ndwi",
     "type": "Feature",
     "geometry": null,
     "conformsTo": [
         "http://www.opengis.net/doc/IS/ogcapi-records-1/1.0"
     ],
     "properties": {
-        "created": "2026-01-01T00:00:00Z",
-        "updated": "2026-03-15T00:00:00Z",
+        "created": "2026-11-26T00:00:00Z",
+        "updated": "2026-11-26T00:00:00Z",
         "type": "workflow",
-        "title": "NDWI Calculation",
-        "description": "This workflow calculates the Normalized Difference Water Index (NDWI) of the selected assets. NDWI is a widely used water index that measures the difference between near-infrared (which water strongly reflects) and red light (which water absorbs).",
+        "title": "NDWI",
+        "description": "Calculates the Normalised Difference Water Index, (green - nir) / (green + nir), for one Sentinel-2 L2A or Sentinel-2 ARD item over an area of interest. High values are water. Values are the same as EOPro's NDWI. The output is clipped to the area and shown with the rdbu colour map from -1 to 1, so water shows blue.",
         "keywords": [
             "ndwi",
-            "vegetation",
+            "water",
             "index",
             "sentinel2",
             "analysis",
@@ -22,8 +22,8 @@
         "language": "en",
         "license": "Apache-2.0",
         "applicableCollections": [
-            "sentinel2_ard",
-            "sentinel-2-c1-l2a"
+            "sentinel-2-c1-l2a",
+            "sentinel2_ard"
         ],
         "contacts": [
             {
@@ -44,22 +44,20 @@
         ],
         "inputParameters": {
             "stac_item": {
-                "label": "Link to STAC Item",
+                "label": "STAC item",
                 "type": "raster",
                 "hubType": "stac-item",
-                "description": "Link to STAC Item to calculate NDWI from",
-                "variableRef": "STAC_ITEM_LINK",
-                "cwlType": "Directory",
-                "staging": "assets"
+                "description": "The Sentinel-2 L2A or Sentinel-2 ARD item to calculate NDWI from",
+                "required": true,
+                "cwlType": "string"
             },
-            "bbox": {
-                "label": "Bounding Box",
-                "type": "bbox",
-                "hubType": "bbox",
-                "description": "Geographic area of interest for the NDWI calculation, as xmin,ymin,xmax,ymax in EPSG:4326",
-                "variableRef": "AOI",
-                "cwlType": "string",
-                "required": false
+            "aoi": {
+                "label": "Area of interest",
+                "type": "vector",
+                "hubType": "aoi",
+                "description": "The area to calculate NDWI over, as a GeoJSON Polygon or MultiPolygon. Pixels outside it are left empty.",
+                "required": true,
+                "cwlType": "string"
             }
         },
         "application:type": "cwl",
@@ -81,19 +79,13 @@
         },
         {
             "rel": "self",
-            "href": "https://eodatahub.org.uk/api/wf-catalogue/v1.0/collections/eodh-workflows-notebooks/items/ndwi-workflow",
+            "href": "https://eodatahub.org.uk/api/wf-catalogue/v1.0/collections/eodh-workflows-notebooks/items/eodh-ndwi",
             "type": "application/geo+json",
             "title": "This record"
         },
         {
-            "rel": "application-platform",
-            "type": "application/json",
-            "title": "ADES Platform Endpoint",
-            "href": "https://eodatahub.org.uk/api/catalogue/stac/catalogs/user/catalogs/discoveryreg/processes/ndwi-workflow"
-        },
-        {
             "rel": "application",
-            "href": "https://raw.githubusercontent.com/geodowd/ndvi/refs/heads/main/ndwi.cwl",
+            "href": "https://raw.githubusercontent.com/EO-DataHub/eodh-index-workflows/v0.4.0/cwl/eodh-ndwi.cwl",
             "type": "application/cwl+yaml",
             "title": "CWL Application Package"
         },
@@ -101,7 +93,7 @@
             "rel": "vcs",
             "type": "text/html",
             "title": "Source Code Repository",
-            "href": "https://github.com/geodowd/ndvi/tree/ndwi"
+            "href": "https://github.com/EO-DataHub/eodh-index-workflows"
         }
     ]
 }
