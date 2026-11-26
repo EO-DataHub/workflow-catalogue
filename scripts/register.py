@@ -285,8 +285,33 @@ def register_ades_process(file_path: Path, workspace_token: str) -> bool:
     return ok
 
 
-def publish_workflow(record_id: str, workspace_token: str) -> bool:
-    """Publish workflow by uploading access policy and triggering harvest."""
+CATALOGUE_DIR = Path(__file__).resolve().parent.parent / "catalogue"
+
+
+def collect_workflow_ids(catalogue_dir: Path = CATALOGUE_DIR) -> list[str]:
+    """Return the IDs of every workflow record in the catalogue, sorted."""
+    ids = []
+    for fp in catalogue_dir.glob("*/workflows/*.json"):
+        data = json.loads(fp.read_text(encoding="utf-8"))
+        if data.get("properties", {}).get("type") == "workflow":
+            ids.append(data["id"])
+    return sorted(ids)
+
+
+def build_access_policy(workflow_ids: list[str]) -> dict[str, Any]:
+    """Build the workspace access policy that makes every given workflow public."""
+    return {"workflows": {workflow_id: {"access": "public"} for workflow_id in workflow_ids}}
+
+
+def publish_workflows(workflow_ids: list[str], workspace_token: str) -> bool:
+    """Publish workflows: upload one access policy that lists them all, then harvest once.
+
+    The workspace has a single ``access-policy.json``. The harvester turns it into one
+    policy file per workflow, and it refuses a harvest that comes too soon after the last
+    one. Uploading a policy per workflow, each followed by a harvest, left every workflow
+    after the first without a policy. So the policy must list every workflow in the
+    catalogue, not only the ones that changed, and be harvested once.
+    """
     base_url = os.environ["EODH__BASE_URL"].rstrip("/")
     workspace = os.environ["EODH__WORKSPACE_NAME"]
     headers = {
@@ -298,8 +323,9 @@ def publish_workflow(record_id: str, workspace_token: str) -> bool:
     print(f"  DEBUG: publish endpoints for workspace='{workspace}'")
     print(f"  DEBUG: data-loader URL: {base_url}/api/workspaces/{workspace}/data-loader")
     print(f"  DEBUG: harvest URL: {base_url}/workspaces/{workspace}/harvest")
+    print(f"  DEBUG: workflows in access policy: {', '.join(workflow_ids)}")
 
-    policy = json.dumps({"workflows": {record_id: {"access": "public"}}})
+    policy = json.dumps(build_access_policy(workflow_ids))
     policy_resp = requests.post(
         f"{base_url}/api/workspaces/{workspace}/data-loader",
         json={"fileContent": policy, "fileName": "access-policy.json"},
@@ -308,10 +334,7 @@ def publish_workflow(record_id: str, workspace_token: str) -> bool:
     )
 
     if not policy_resp.ok:
-        print(
-            f"  WARN: Access policy upload failed for '{record_id}': "
-            f"{policy_resp.status_code} {truncate(policy_resp.text)}"
-        )
+        print(f"  WARN: Access policy upload failed: {policy_resp.status_code} {truncate(policy_resp.text)}")
         return False
 
     harvest_resp = requests.post(
@@ -321,13 +344,10 @@ def publish_workflow(record_id: str, workspace_token: str) -> bool:
     )
 
     if not harvest_resp.ok:
-        print(
-            f"  WARN: Harvest trigger failed for '{record_id}': "
-            f"{harvest_resp.status_code} {truncate(harvest_resp.text)}"
-        )
+        print(f"  WARN: Harvest trigger failed: {harvest_resp.status_code} {truncate(harvest_resp.text)}")
         return False
 
-    print(f"  OK: Published '{record_id}'")
+    print(f"  OK: Published {len(workflow_ids)} workflow(s): {', '.join(workflow_ids)}")
     return True
 
 
@@ -356,7 +376,7 @@ def main() -> None:
         sys.exit(1)
 
     workspace_token = None
-    needs_workspace_token = (not args.skip_ades or not args.skip_publish) and files
+    needs_workspace_token = (not args.skip_ades or not args.skip_publish) and (files or args.deleted_ids)
     if needs_workspace_token:
         workspace = os.environ.get("EODH__WORKSPACE_NAME", "")
         if workspace:
@@ -397,14 +417,14 @@ def main() -> None:
             if not register_ades_process(fp, workspace_token):
                 errors.append(f"ades:{fp}")
 
-    if files and not args.skip_publish and workspace_token:
+    workflow_changed = any(
+        json.loads(fp.read_text(encoding="utf-8")).get("properties", {}).get("type") == "workflow" for fp in files
+    )
+    if (workflow_changed or args.deleted_ids) and not args.skip_publish and workspace_token:
         print("\n=== Publishing workflows ===")
-        for fp in files:
-            data = json.loads(fp.read_text(encoding="utf-8"))
-            if data.get("properties", {}).get("type") == "workflow":
-                record_id = data["id"]
-                if not publish_workflow(record_id, workspace_token):
-                    errors.append(f"publish:{record_id}")
+        workflow_ids = collect_workflow_ids()
+        if workflow_ids and not publish_workflows(workflow_ids, workspace_token):
+            errors.append("publish:access-policy")
 
     if errors:
         print(f"\n{len(errors)} error(s):")
