@@ -22,7 +22,7 @@ To add a new collection, create a new directory under `catalogue/` with a `catal
 
 1. **Copy a template** from the appropriate directory:
 
-    - Workflow: `catalogue/eodh-workflows-notebooks/workflows/ndwi-workflow.json`
+    - Workflow: `catalogue/eodh-workflows-notebooks/workflows/eodh-ndwi.json`
     - Notebook: `catalogue/eodh-workflows-notebooks/notebooks/ndvi_calculation.json`
 
 2. **Rename the file** to match the record ID. The filename stem must equal the `id` field:
