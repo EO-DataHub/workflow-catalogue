@@ -1,0 +1,100 @@
+{
+    "id": "eodh-ndvi",
+    "type": "Feature",
+    "geometry": null,
+    "conformsTo": [
+        "http://www.opengis.net/doc/IS/ogcapi-records-1/1.0"
+    ],
+    "properties": {
+        "created": "2026-11-18T00:00:00Z",
+        "updated": "2026-11-26T00:00:00Z",
+        "type": "workflow",
+        "title": "NDVI",
+        "description": "Calculates the Normalised Difference Vegetation Index, (nir - red) / (nir + red), for one Sentinel-2 L2A or Sentinel-2 ARD item over an area of interest. Values are the same as EOPro's NDVI. The output is clipped to the area and shown with the ylgn colour map from -0.2 to 1.",
+        "keywords": [
+            "ndvi",
+            "vegetation",
+            "index",
+            "sentinel2",
+            "analysis",
+            "remote sensing"
+        ],
+        "language": "en",
+        "license": "Apache-2.0",
+        "applicableCollections": [
+            "sentinel-2-c1-l2a",
+            "sentinel2_ard"
+        ],
+        "contacts": [
+            {
+                "name": "EODH Platform Team",
+                "organization": "EO DataHub",
+                "roles": [
+                    "author"
+                ],
+                "links": [
+                    {
+                        "href": "https://eodatahub.org.uk",
+                        "rel": "about",
+                        "type": "text/html",
+                        "title": "EO DataHub Platform"
+                    }
+                ]
+            }
+        ],
+        "inputParameters": {
+            "stac_item": {
+                "label": "STAC item",
+                "type": "raster",
+                "hubType": "stac-item",
+                "description": "The Sentinel-2 L2A or Sentinel-2 ARD item to calculate NDVI from",
+                "required": true,
+                "cwlType": "Directory",
+                "staging": "assets"
+            },
+            "aoi": {
+                "label": "Area of interest",
+                "type": "vector",
+                "hubType": "aoi",
+                "description": "The area to calculate NDVI over, as a GeoJSON Polygon or MultiPolygon. Pixels outside it are left empty.",
+                "required": true,
+                "cwlType": "string"
+            }
+        },
+        "application:type": "cwl",
+        "application:container": true,
+        "application:language": "CWL"
+    },
+    "links": [
+        {
+            "rel": "root",
+            "href": "https://eodatahub.org.uk/api/wf-catalogue/v1.0/collections",
+            "type": "application/json",
+            "title": "EODH Workflows and Notebooks Catalog"
+        },
+        {
+            "rel": "parent",
+            "href": "https://eodatahub.org.uk/api/wf-catalogue/v1.0/collections",
+            "type": "application/json",
+            "title": "Workflows and Notebooks"
+        },
+        {
+            "rel": "self",
+            "href": "https://eodatahub.org.uk/api/wf-catalogue/v1.0/collections/eodh-workflows-notebooks/items/eodh-ndvi",
+            "type": "application/geo+json",
+            "title": "This record"
+        },
+        {
+            "rel": "application",
+            "href": "https://raw.githubusercontent.com/EO-DataHub/eodh-index-workflows/v0.1.0/cwl/eodh-ndvi.cwl",
+            "type": "application/cwl+yaml",
+            "title": "CWL Application Package"
+        },
+        {
+            "rel": "vcs",
+            "type": "text/html",
+            "title": "Source Code Repository",
+            "href": "https://github.com/EO-DataHub/eodh-index-workflows"
+        }
+    ]
+}
